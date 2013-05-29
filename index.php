@@ -2,13 +2,45 @@
 <?php include('templates/header.php') ?>
 
       <form class="form-signin">
-        <h2 class="form-signin-heading">Please sign in</h2>
-        <input type="text" class="input-block-level" placeholder="Email address">
+
+
+        <?php 
+
+          if( $_GET['forgot_password'] ) {
+
+        ?>
+
+        <div class="alert alert-success">
+          <strong>Don't worry!</strong>&nbsp;
+          Your password has been emailed to you.
+        </div>
+
+        <a href="index.php" class="btn btn-block btn-large">Ok</a>
+
+        <?php
+
+          } else {
+
+          
+        ?>
+
+
+
+        <h2 class="text-center form-signin-heading">Please Sign In</h2>
+        <input type="text" class="input-block-level" placeholder="User ID">
         <input type="password" class="input-block-level" placeholder="Password">
-        <label class="checkbox">
-          <input type="checkbox" value="remember-me"> Remember me
-        </label>
-        <button class="btn btn-large btn-primary" type="submit">Sign in</button>
+
+        <!-- <button class="btn btn-block btn-large btn-primary" type="submit">Sign in</button> -->
+        <a href="student.php" class="btn btn-block btn-large btn-primary">Sign in</a>
+
+        <br>
+        <span class="pull-right">
+          <a href="?forgot_password=true">Forgot your password?</a>
+        </span>
+
+
+        <?php } ?>
+        
       </form>
 
 <?php include('templates/footer.php') ?>
