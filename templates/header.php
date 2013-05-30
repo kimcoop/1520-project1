@@ -41,7 +41,7 @@
             <ul class="nav pull-right">
               <li class="active">
                 <a href="#">
-                  <?php echo $_SESSION['full_name'] ?>
+                  Welcome, <?php echo $_SESSION['full_name'] ?>
                 </a></li>
               <li><a href="routes.php?action=logout">Logout</a></li>
             </ul>

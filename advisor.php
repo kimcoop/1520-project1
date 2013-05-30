@@ -12,7 +12,7 @@
       <?php echo $_SESSION['first_name'] ?>'s Dashboard
     </h1>
     <p>
-      Welcome to your dashboard. Here you'll find records of courses you've taken, in different orders.
+      Welcome to your dashboard. YOU ARE AN ADVISOR!
     </p>
 
   </div><!-- .hero-unit -->
