@@ -16,11 +16,19 @@ function is_logged_in() {
 }
 
 function is_student() {
-  return ( $_SESSION['access_level'] == $GLOBALS['student_access_level'] );
+  return $_SESSION['access_level'] == $GLOBALS['student_access_level'];
 }
 
 function is_advisor() {
-  return ( $_SESSION['access_level'] == $GLOBALS['advisor_access_level'] );
+  return $_SESSION['access_level'] == $GLOBALS['advisor_access_level'];
+}
+
+function is_viewing_student() {
+ return isset( $_SESSION['student'] ); 
+}
+
+function notice_present() {
+  return isset( $_SESSION['notice'] );
 }
 
 //Dept:Number:Term:PSID:Grade
@@ -45,6 +53,19 @@ class StudentCourse {
   }
 }
 
+
+  /* 
+  *
+
+  UTILITY FUNCTIONS 
+
+  *
+  */
+
+  function display_notice( $message, $type ) {
+    $_SESSION['notice']['message'] = $message;
+    $_SESSION['notice']['type'] = $type;
+  }
 
   /* 
   *
@@ -93,6 +114,11 @@ function get_requirements() {
     $_SESSION['student']['psid'] = 3538156;
     $_SESSION['student']['full_name'] = 'Kim Coop';
     $_SESSION['student']['last_name'] = 'Coop';
+  }
+
+  function log_advising_session() {
+    // Log advising session – this option will add a timestamp entry to a file indicating the date and time of this student's current advising session. See below for file format details.
+   display_notice( 'Advising session logged.', 'success' );
   }
 
 

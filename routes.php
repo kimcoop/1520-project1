@@ -9,6 +9,12 @@
     exit();
   }
 
+  if ( isset($_POST['log_advising_session_form_submit']) ) {
+    log_advising_session();
+    header('Location: advisor.php') ;
+    exit();
+  }
+
   if( $_GET['action'] == 'signin' ) {
     // TODO: check credentials
     signin();
