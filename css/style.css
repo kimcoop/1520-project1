@@ -39,3 +39,16 @@ body {
 .text-right {
   text-align: right;
 }*/
+
+.navbar22 {
+  background-image: url('img/grey-bg.png');
+  background-position: initial initial;
+  background-repeat: initial initial;
+}
+
+hr {
+  margin: 20px 0;
+  border: 0;
+  border-top: 1px solid #e5e5e5;
+  border-bottom: none;
+}

@@ -39,7 +39,10 @@
           <a class="brand" href="#">Advisor Cloud</a>
           <div class="nav-collapse collapse">
             <ul class="nav pull-right">
-              <li class="active"><a href="#">Home</a></li>
+              <li class="active">
+                <a href="#">
+                  <?php echo $_SESSION['full_name'] ?>
+                </a></li>
               <li><a href="routes.php?action=logout">Logout</a></li>
             </ul>
           </div><!--/.nav-collapse -->

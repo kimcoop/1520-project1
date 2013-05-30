@@ -1,11 +1,12 @@
 <?php
 
+  require( 'functions.php' );
   session_start();
 
   if( $_GET['action'] == 'signin' ) {
       
     // TODO: check credentials
-    $_SESSION['user_id'] = '3538156';
+    signin();
     header('Location: student.php') ;
     exit();
 
