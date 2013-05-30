@@ -27,7 +27,11 @@ function is_viewing_student() {
  return isset( $_SESSION['student'] ); 
 }
 
-function notice_present() {
+function is_logging_session() {
+ return isset( $_SESSION['student']['logging_session'] ); 
+}
+
+function should_show_notice() {
   return isset( $_SESSION['notice'] );
 }
 
@@ -118,7 +122,8 @@ function get_requirements() {
 
   function log_advising_session() {
     // Log advising session – this option will add a timestamp entry to a file indicating the date and time of this student's current advising session. See below for file format details.
-   display_notice( 'Advising session logged.', 'success' );
+    $_SESSION['student']['logging_session'] = true;
+    display_notice( 'Advising session logged.', 'success' );
   }
 
 

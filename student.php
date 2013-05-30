@@ -7,15 +7,18 @@
 
 ?>
   
-  <div class="hero-unit">
-    <h1>
-      <?php echo $_SESSION['first_name'] ?>'s Dashboard
-    </h1>
+  <div class="hgroup">
+    
+    <h2>
+      <?php echo $_SESSION['first_name'] ?>'s 
+      <span class="light">Advisor Dashboard</span>
+    </h2>
+
     <p>
       Welcome to your dashboard. Here you'll find records of courses you've taken.
     </p>
 
-  </div><!-- .hero-unit -->
+  </div><!-- .hgroup -->
 
   <hr>
 

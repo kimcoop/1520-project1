@@ -1,6 +1,6 @@
 <div class="row">
   <div class="span12">
-    <h2>Courses taken by term</h2>
+    <h3>Courses taken by term</h3>
     <p>
       A list of all courses he / she has taken, with grades, shown term by term
     </p>
@@ -21,7 +21,7 @@
 
 <div class="row">
   <div class="span12">
-    <h2>Courses taken by department</h2>
+    <h3>Courses taken by department</h3>
     <p>
       
     <?php
@@ -40,7 +40,7 @@
 
 <div class="row">
   <div class="span12">
-    <h2>CS graduation requirements</h2>
+    <h3>CS graduation requirements</h3>
     <p>
       
     <?php
