@@ -10,8 +10,8 @@
     <meta name="author" content="">
 
     <!-- Le styles -->
-    <link href="css/bootstrap.css" rel="stylesheet">
-    <link href="css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.1.1/css/font-awesome.css" rel="stylesheet">
 
     <link href="css/style.css" rel="stylesheet">
 
@@ -25,6 +25,7 @@
   <body>
 
     <?php
+
       session_start(); // attempt to start session
       if ( isset( $_SESSION['user_id'] ) ) {
 

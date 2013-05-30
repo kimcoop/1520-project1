@@ -3,7 +3,7 @@
 <?php
 
   session_start(); // attempt to start session
-  if ( isset( $_SESSION['user_id'] ) ) {
+  if ( is_logged_in() && is_student() ) {
 
 ?>
   
@@ -12,7 +12,7 @@
       <?php echo $_SESSION['first_name'] ?>'s Dashboard
     </h1>
     <p>
-      Welcome to your dashboard. Here you'll find records of courses you've taken, in different orders.
+      Welcome to your dashboard. Here you'll find records of courses you've taken.
     </p>
 
   </div><!-- .hero-unit -->
@@ -21,7 +21,7 @@
 
   <div class="row">
     <div class="span12">
-      <h2>Courses you've taken by term</h2>
+      <h2>Courses taken by term</h2>
       <p>
         A list of all courses he / she has taken, with grades, shown term by term
       </p>
@@ -42,7 +42,7 @@
 
   <div class="row">
     <div class="span12">
-      <h2>Courses you've taken by department</h2>
+      <h2>Courses taken by department</h2>
       <p>
         
       <?php
@@ -103,8 +103,9 @@
 
 ?>
 
+  <br>
   <div class="alert alert-error">
-    <strong>Sorry</strong> You must be logged in to view this page.
+    <strong>Sorry</strong> You must be logged in as a student to view this page.
   </div>
 
   <a class="btn btn-primary" href="index.php">Login</a>
