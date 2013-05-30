@@ -11,7 +11,7 @@
     
     <h2>
       <?php echo $_SESSION['first_name'] ?>'s 
-      <span class="light">Advisor Dashboard</span>
+      <span class="light">Student Dashboard</span>
     </h2>
 
     <p>

@@ -129,7 +129,7 @@
             <p class="text-success">
               Logging current advising session
             </p>
-            
+
         <?php
           }
         ?>
@@ -137,8 +137,8 @@
       </aside>
       <aside class="well">
         <h4 class="title">Actions</h4>
-        <textarea class="input-block-level" name="advising_notes_form_content" rows="6" placeholder="Notes"></textarea>
         <form action="routes.php" method="post" name="advising_notes_form">
+          <textarea class="input-block-level" name="note_content" rows="6" placeholder="Notes"></textarea>
           <button class="btn btn-block" type="submit" name="advising_notes_form_submit">Add notes to current session</button>
         </form>
       </aside>

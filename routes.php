@@ -15,6 +15,12 @@
     exit();
   }
 
+  if ( isset($_POST['advising_notes_form_submit']) ) {
+    add_notes_to_session( $_POST['note_content'] );
+    header('Location: advisor.php') ;
+    exit();
+  }
+
   if( $_GET['action'] == 'signin' ) {
     // TODO: check credentials
     signin();

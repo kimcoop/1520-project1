@@ -122,8 +122,15 @@ function get_requirements() {
 
   function log_advising_session() {
     // Log advising session – this option will add a timestamp entry to a file indicating the date and time of this student's current advising session. See below for file format details.
+    // TODO: log session
     $_SESSION['student']['logging_session'] = true;
     display_notice( 'Advising session logged.', 'success' );
+  }
+
+  function add_notes_to_session( $notes ) {
+    // TODO: add notes to session
+    // $_SESSION['student']['logging_session'] = true;
+    display_notice( 'Advising session notes added.', 'success' );
   }
 
 
