@@ -26,9 +26,7 @@
         A list of all courses he / she has taken, with grades, shown term by term
       </p>
       <p>
-      asdfasdf
-      <?php 
-
+      <?php
 
       $courses = get_courses_by_term(); 
       foreach( $courses as $course ) {
@@ -46,8 +44,15 @@
     <div class="span12">
       <h2>Courses you've taken by department</h2>
       <p>
-        A list of all courses he / she has taken, with grades, shown in alphabetical order by department and in numerical order within a department. For example, if the student has taken MATH 0230, MATH 0220, CS 0445, CS 1501, CS 0401, CHEM 0120 and BIOSC 0160, the resulting order should be:
-BIOSC 0160, CHEM 0120, CS 0401, CS 0445, CS 1501, MATH 0220, MATH 0230
+        
+      <?php
+
+      $courses = get_courses_by_department(); 
+      foreach( $courses as $course ) {
+        echo $course;
+      }
+
+      ?>
       </p>
     </div>
   </div>
@@ -58,9 +63,17 @@ BIOSC 0160, CHEM 0120, CS 0401, CS 0445, CS 1501, MATH 0220, MATH 0230
     <div class="span12">
       <h2>CS graduation requirements</h2>
       <p>
-         N – requirement is Not satisfied
-ii)    S [Course] [Term] [Grade] – requirements is Satisftied by the indicated course in the indicated term with the indicated grade. Note that all requirements must be satisfied with a grade of C or better. Any grades of C- or lower cannot satisfy any requirements. See below for details on the CS graduation requirements.
+        
+      <?php
+
+      $courses = get_requirements(); 
+      foreach( $courses as $course ) {
+        echo $course;
+      }
+
+      ?>
       </p>
+      
     </div>
   </div>
 
