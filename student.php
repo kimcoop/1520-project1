@@ -1,19 +1,29 @@
-
 <?php include('templates/header.php') ?>
 
-<div class="container">
+<?php
 
-      <!-- Main hero unit for a primary marketing message or call to action -->
-      <div class="hero-unit">
-        <h1>Hello, world!</h1>
-        <p>
-  A list of all courses he / she has taken, with grades, shown term by term
-b)     A list of all courses he / she has taken, with grades, shown in alphabetical order by department and in numerical order within a department. For example, if the student has taken MATH 0230, MATH 0220, CS 0445, CS 1501, CS 0401, CHEM 0120 and BIOSC 0160, the resulting order should be:
-BIOSC 0160, CHEM 0120, CS 0401, CS 0445, CS 1501, MATH 0220, MATH 0230
-c)     A list of all of the CS graduation requirements with one of two indicators for each requirement:
-i)      N – requirement is Not satisfied
-ii)    S [Course] [Term] [Grade] – requirements is Satisftied by the indicated course in the indicated term with the indicated grade. Note that all requirements must be satisfied with a grade of C or better. Any grades of C- or lower cannot satisfy any requirements. See below for details on the CS graduation requirements.
-</p
+  session_start(); // attempt to start session
+  if ( isset( $_SESSION['user_id'] ) ) {
+
+?>
+  
+  <div class="hero-unit">
+    <h1>Hello, world!</h1>
+    <p>
+      A list of all courses he / she has taken, with grades, shown term by term
+    </p>
+    <p>
+    b)     A list of all courses he / she has taken, with grades, shown in alphabetical order by department and in numerical order within a department. For example, if the student has taken MATH 0230, MATH 0220, CS 0445, CS 1501, CS 0401, CHEM 0120 and BIOSC 0160, the resulting order should be:
+    BIOSC 0160, CHEM 0120, CS 0401, CS 0445, CS 1501, MATH 0220, MATH 0230
+    </p>
+    <p>
+    c)     A list of all of the CS graduation requirements with one of two indicators for each requirement:
+    </p>
+    <p>
+    i)  
+        N – requirement is Not satisfied
+    ii)    S [Course] [Term] [Grade] – requirements is Satisftied by the indicated course in the indicated term with the indicated grade. Note that all requirements must be satisfied with a grade of C or better. Any grades of C- or lower cannot satisfy any requirements. See below for details on the CS graduation requirements.
+    </p
 
         <p><a href="#" class="btn btn-primary btn-large">Learn more &raquo;</a></p>
       </div>
@@ -37,5 +47,25 @@ ii)    S [Course] [Term] [Grade] – requirements is Satisftied by the indicated
         </div>
       </div>
 
+<?php
+
+  } else {
+
+?>
+
+  <div class="alert alert-error">
+    <strong>Sorry</strong> You must be logged in to view this page.
+  </div>
+
+  <a class="btn btn-primary" href="index.php">Login</a>
+
+
+<?php 
+
+  }
+
+?>
 
 <?php include('templates/footer.php') ?>
+
+

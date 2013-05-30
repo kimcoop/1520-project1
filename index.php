@@ -27,11 +27,11 @@
 
 
         <h2 class="text-center form-signin-heading">Please Sign In</h2>
-        <input type="text" class="input-block-level" placeholder="User ID">
+        <input autofocus type="text" class="input-block-level" placeholder="User ID">
         <input type="password" class="input-block-level" placeholder="Password">
 
         <!-- <button class="btn btn-block btn-large btn-primary" type="submit">Sign in</button> -->
-        <a href="student.php" class="btn btn-block btn-large btn-primary">Sign in</a>
+        <a href="routes.php?action=signin" class="btn btn-block btn-large btn-primary">Sign in</a>
 
         <br>
         <span class="pull-right">
