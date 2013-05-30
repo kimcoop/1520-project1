@@ -39,7 +39,8 @@
 
           <ul class="nav nav-tabs">
             <li class="active"><a href="#courses" data-toggle="tab">Courses</a></li>
-            <li><a href="#advising" data-toggle="tab">Advising</a></li>
+            <li><a href="#advising" data-toggle="tab">Advising Sessions</a></li>
+            <li><a href="#notes" data-toggle="tab">Advising Notes</a></li>
           </ul>
 
           <div class="tab-content">
@@ -67,6 +68,10 @@
                 </div>
               </div>
             </div><!-- #advising -->
+
+            <div class="tab-pane" id="notes">
+              <?php include('templates/notes.php') ?>
+            </div><!-- #notes -->
 
           </div><!-- .tab-content -->
 
@@ -136,7 +141,7 @@
 
       </aside>
       <aside class="well">
-        <h4 class="title">Actions</h4>
+        <h4 class="title">Session Notes</h4>
         <form action="routes.php" method="post" name="advising_notes_form">
           <textarea class="input-block-level" name="note_content" rows="6" placeholder="Notes"></textarea>
           <button class="btn btn-block" type="submit" name="advising_notes_form_submit">Add notes to current session</button>

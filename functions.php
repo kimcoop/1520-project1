@@ -133,5 +133,11 @@ function get_requirements() {
     display_notice( 'Advising session notes added.', 'success' );
   }
 
+  function get_advising_session_notes( $session_id ) {
+    //this option will show a list of advising note timestamps, ordered from most recent to least recent. Also shown will be a radiobutton for each timestamp, so that the advisor may select one of them. When a timestamp is selected and submitted, the advisor will see the comments associated with that timestamp.
+    return array("notes1", "notes2", "notes3", "notes4");
+
+  }
+
 
 ?>
