@@ -21,6 +21,10 @@
         Currently viewing report for: <?php echo $_SESSION['student']['full_name'] ?>, user ID <?php echo $_SESSION['student']['user_id'] ?>, PeopleSoft #<?php echo $_SESSION['student']['psid'] ?>
       </p>
 
+      <form action="routes.php" method="post" name="log_advising_session_form">
+        <button class="btn" type="submit" name="log_advising_session_form_submit">Log advising session</button>
+      </form>
+
     <?php
         
       } else {
@@ -46,65 +50,25 @@
 
   </div><!-- .hero-unit -->
 
-  <hr>
+  
 
-  <div class="row">
-    <div class="span12">
-      <h2>Courses taken by term</h2>
-      <p>
-        A list of all courses he / she has taken, with grades, shown term by term
-      </p>
-      <p>
-      <?php
+  <ul class="nav nav-tabs">
+    <li class="active"><a href="#courses" data-toggle="tab">Courses</a></li>
+    <li><a href="#advising" data-toggle="tab">Advising</a></li>
+  </ul>
+  <div class="tab-content">
+    <div class="tab-pane active" id="courses">
+      <p>I'm in Section 1.</p>
+        <?php include('templates/courses.php') ?>
+    </div><!-- #courses -->
 
-      $courses = get_courses_by_term(); 
-      foreach( $courses as $course ) {
-        echo $course;
-      }
+    <div class="tab-pane" id="advising">
+      <p>Howdy, I'm in Section 2.</p>
 
-      ?>
-      </p>
-    </div>
+    </div><!-- #advising -->
+
   </div>
 
-  <hr>
-
-  <div class="row">
-    <div class="span12">
-      <h2>Courses taken by department</h2>
-      <p>
-        
-      <?php
-
-      $courses = get_courses_by_department(); 
-      foreach( $courses as $course ) {
-        echo $course;
-      }
-
-      ?>
-      </p>
-    </div>
-  </div>
-
-  <hr>  
-
-  <div class="row">
-    <div class="span12">
-      <h2>CS graduation requirements</h2>
-      <p>
-        
-      <?php
-
-      $courses = get_requirements(); 
-      foreach( $courses as $course ) {
-        echo $course;
-      }
-
-      ?>
-      </p>
-      
-    </div>
-  </div>
 
   <hr>
   
