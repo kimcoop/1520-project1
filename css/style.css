@@ -5,17 +5,22 @@ html, body {
 body {
   padding-top: 0;
   padding-bottom: 0;
+  color: #555;
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", 
+  Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-family: arial;
 }
 
 * {
   margin: 0;
 }
 
-.container {
+.container.main {
   min-height: 100%;
   height: auto !important;
   height: 100%;
   margin: 0 auto -4em;
+  line-height: 1.8em;
 }
 
 form {
@@ -65,12 +70,24 @@ hr.dotted {
 }
 
 h1,h2,h3 {
-  font-weight: 300;
-  text-shadow: 1px 1px 0px #ffffff;
+  font-weight: lighter;
+  text-shadow: 1px 1px 0px #efefef;
+  color: #57525e;
+  font-family: georgia;
+  letter-spacing: -1px;
 }
 
 h4 {
-  font-weight: 400;
+  font-weight: 500;
+}
+
+a {
+  color: #999999;
+  font-weight: bold;
+}
+
+a:hover {
+  color: #000;
 }
 
 .light {
@@ -83,21 +100,40 @@ h4 {
 
 header, footer {
   width: 100%;
-  padding: 10px 20px 20px;
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
-  background: url('../img/grey-bg.png');
+  background: #57525e;
+  color: #efefef;
+}
 
+header .title {
+  text-shadow: none;
 }
 
 header {
-  border-bottom: solid 1px #efefef;
+  border-bottom: solid 5px #999999;
   margin-bottom: 20px;
 }
+
+.nav-container {
+  padding-top: 1em;
+}
+
+.nav-pills {
+  padding-top: 1em;
+}
+
+.nav>li>a:hover, .nav>li>a:focus, footer a:hover, footer a:focus {
+  text-decoration: none;
+  background-color: inherit;
+  color: #efefef;
+}
+
 footer {
+  margin-top: 30px;
   padding-top: 15px;
-  border-bottom: solid 1px #efefef;
+  border-top: solid 4px #999999;
 }
 
 footer, .push {
@@ -110,6 +146,11 @@ footer, .push {
   box-shadow: none;
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
+  border: none;
+}
+
+aside {
+  margin-left: 40px;
 }
 
 aside .title {
@@ -120,4 +161,27 @@ aside .title {
 aside .btn {
   margin-top: 10px;
   margin-bottom: 5px;
+}
+
+.btn {
+  display: inline-block;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  position: relative;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: bold;
+  line-height: 1;
+  text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.1);
+  background-color: #eee;
+  font-size: 14px;
+  padding: 8px 14px 9px;
+  background-image: none;
+  background-origin: padding-box;
+  background-size: auto;
+  text-shadow: none;
 }

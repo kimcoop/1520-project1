@@ -21,6 +21,12 @@
     exit();
   }
 
+  if ( isset($_POST['display_comments_form_submit']) ) {
+    display_session_comments( $_POST['display_comments_form_submit'] );
+    header('Location: advisor.php') ;
+    exit();
+  }
+
   if( $_GET['action'] == 'signin' ) {
     // TODO: check credentials
     signin();

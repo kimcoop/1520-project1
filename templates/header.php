@@ -35,13 +35,19 @@
     ?>
 
       <header>
-        <ul class="nav nav-pills pull-right">
-          <li class="active"><a href="#">
-            Welcome, <?php echo $_SESSION['full_name'] ?>
-          </a></li>
-          <li><a href="routes.php?action=logout">Logout</a></li>
-        </ul>
-        <h3 class="muted">Advisor Cloud</h3>
+        <div class="container nav-container">
+          <ul class="nav nav-pills pull-right">
+            <li><a href="#">
+              Welcome, <?php echo $_SESSION['full_name'] ?>
+            </a></li>
+            <li>
+              <a href="routes.php?action=logout">
+                Logout
+              </a>
+            </li>
+          </ul>
+          <h3 class="title muted">Advisor Cloud</h3>
+        </div><!-- .container -->
       </header>
 
 
@@ -51,5 +57,5 @@
 
     ?>
 
-    <div class="container">
+    <div class="container main">
 

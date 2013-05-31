@@ -136,8 +136,15 @@ function get_requirements() {
   function get_advising_session_notes( $session_id ) {
     //this option will show a list of advising note timestamps, ordered from most recent to least recent. Also shown will be a radiobutton for each timestamp, so that the advisor may select one of them. When a timestamp is selected and submitted, the advisor will see the comments associated with that timestamp.
     return array("notes1", "notes2", "notes3", "notes4");
-
   }
 
+  function get_advising_sessions( $psid ) {
+    // Show advising sessions – this option will show a list of previous advising sessions for this student, ordered from most recent to least recent.
+    return array("session1", "session2", "session3", "session4");
+  }
+
+  function display_session_comments( $session_id ) {
+   return array("comment1", "comment2", "comment3", "comment4"); 
+  }
 
 ?>
