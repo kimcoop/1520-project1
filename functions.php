@@ -1,14 +1,32 @@
 <?php
 
-$student_access_level = 0;
-$advisor_access_level = 1;
+define( "STUDENT_ACCESS_LEVEL", 0 );
+define( "ADVISOR_ACCESS_LEVEL", 0 );
+define( "USERS_FILE", 'files/users.txt' );
+define( "COURSES_FILE", 'files/courses.txt' );
+define( "REQS_FILE", 'files/reqs.txt' );
 
-function signin() {
-  $_SESSION['first_name'] = 'Kim';
-  $_SESSION['user_id'] = 3538156;
-  $_SESSION['full_name'] = 'Kim Coop';
-  // $_SESSION['access_level'] = 0;
-  $_SESSION['access_level'] = 1;
+function signin( $user_id, $password ) {
+  $file_handle = fopen( USERS_FILE , "r");
+  $valid = false;
+  
+  while ( !feof($file_handle) ) {
+    $line = fgets( $file_handle );
+    $pieces = explode( ":", $line );
+    if ( $pieces[0] == $user_id && $pieces[1] == $password ) {
+      //UserID:Password:PSID:Email:LastName:FirstName:Access_Level
+      $valid = true;
+      $_SESSION['user_id'] = $user_id;
+      $_SESSION['last_name'] = $pieces[4];
+      $_SESSION['first_name'] = $pieces[5];
+      $_SESSION['full_name'] = $pieces[4];
+      $_SESSION['access_level'] = $pieces[6];
+    }
+  }
+
+  fclose( $file_handle );
+
+  return valid;
 }
 
 function is_logged_in() {
@@ -16,11 +34,11 @@ function is_logged_in() {
 }
 
 function is_student() {
-  return $_SESSION['access_level'] == $GLOBALS['student_access_level'];
+  return $_SESSION['access_level'] == STUDENT_ACCESS_LEVEL;
 }
 
 function is_advisor() {
-  return $_SESSION['access_level'] == $GLOBALS['advisor_access_level'];
+  return $_SESSION['access_level'] == ADVISOR_ACCESS_LEVEL;
 }
 
 function is_viewing_student() {
@@ -69,6 +87,13 @@ class StudentCourse {
   function display_notice( $message, $type ) {
     $_SESSION['notice']['message'] = $message;
     $_SESSION['notice']['type'] = $type;
+  }
+
+  function is_active_tab( $tab_id ) {
+    if ( $tab_id=='courses' && empty($_GET['tab']) )
+      return true;
+    else
+      return $_GET['tab'] == $tab_id;
   }
 
   /* 
@@ -143,7 +168,7 @@ function get_requirements() {
     return array("session1", "session2", "session3", "session4");
   }
 
-  function display_session_comments( $session_id ) {
+  function get_session_comments( $session_id ) {
    return array("comment1", "comment2", "comment3", "comment4"); 
   }
 

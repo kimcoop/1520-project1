@@ -38,22 +38,22 @@
         ?>
 
           <ul class="nav nav-tabs">
-            <li class="active"><a href="#courses" data-toggle="tab">Courses</a></li>
-            <li><a href="#advising" data-toggle="tab">Advising Sessions</a></li>
-            <li><a href="#notes" data-toggle="tab">Advising Notes</a></li>
+            <li <?php if (is_active_tab('courses')) echo 'class="active"' ?>><a href="#courses" data-toggle="tab">Courses</a></li>
+            <li <?php if (is_active_tab('advising_sessions')) echo 'class="active"' ?>><a href="#advising_sessions" data-toggle="tab">Advising Sessions</a></li>
+            <li <?php if (is_active_tab('advising_notes')) echo 'class="active"' ?>><a href="#advising_notes" data-toggle="tab">Advising Notes</a></li>
           </ul>
 
           <div class="tab-content">
 
-            <div class="tab-pane active" id="courses">
+            <div class="tab-pane <?php if (is_active_tab('courses')) echo 'active' ?>" id="courses">
               <?php include('templates/courses.php') ?>
             </div><!-- #courses -->
 
-            <div class="tab-pane" id="advising">
+            <div class="tab-pane <?php if (is_active_tab('advising_sessions')) echo 'active' ?>" id="advising_sessions">
               <?php include('templates/sessions.php') ?>
             </div><!-- #advising -->
 
-            <div class="tab-pane" id="notes">
+            <div class="tab-pane <?php if (is_active_tab('advising_notes')) echo 'active' ?>" id="advising_notes">
               <?php include('templates/notes.php') ?>
             </div><!-- #notes -->
 
@@ -89,53 +89,7 @@
     </div><!-- .main-content -->
 
     <div class="span3 side-content">
-        <?php 
-
-          if ( is_viewing_student() ) {
-
-            $format = "%s, user ID %u, PeopleSoft #%u";
-            $student_summary = sprintf( $format, $_SESSION['student']['full_name'], $_SESSION['student']['user_id'], $_SESSION['student']['psid'] );
-
-        ?>
-      <aside class="well">
-        <h4 class="title">Status</h4>
-
-          <p>
-            Currently viewing report for: <?php echo $student_summary ?>
-          </p>
-
-            <?php
-              if ( !is_logging_session() ) {
-            ?>
-
-            <form action="routes.php" method="post" name="log_advising_session_form">
-              <button class="btn btn-block" type="submit" name="log_advising_session_form_submit">Log advising session</button>
-            </form>
-
-            <?php
-              } else {
-            ?>
-            <p class="text-success">
-              Logging current advising session
-            </p>
-
-        <?php
-          }
-        ?>
-
-      </aside>
-      <aside class="well">
-        <h4 class="title">Session Notes</h4>
-        <form action="routes.php" method="post" name="advising_notes_form">
-          <textarea class="input-block-level" name="note_content" rows="6" placeholder="Notes"></textarea>
-          <button class="btn btn-block" type="submit" name="advising_notes_form_submit">Add notes to current session</button>
-        </form>
-      </aside>
-
-        <?php
-          }
-        ?>
-
+        <?php include('templates/sidebar.php') ?>
     </div><!-- .side-content -->
 
   </div><!-- .row -->

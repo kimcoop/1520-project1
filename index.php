@@ -1,7 +1,7 @@
 
 <?php include('templates/header.php') ?>
 
-  <form class="form-signin">
+  <form class="form-signin" action="routes.php" name="signin_form" method="post">
 
     <?php 
 
@@ -19,23 +19,36 @@
     <?php
 
       } else {
-
       
     ?>
 
 
-
     <h2 class="text-center form-signin-heading">Please Sign In</h2>
-    <input autofocus type="text" class="input-block-level" placeholder="User ID">
-    <input type="password" class="input-block-level" placeholder="Password">
 
-    <!-- <button class="btn btn-block btn-large btn-primary" type="submit">Sign in</button> -->
-    <a href="routes.php?action=signin" class="btn btn-block btn-large btn-primary">Sign in</a>
+    <?php
+      if ( should_show_notice() ) {
+    ?>
+
+      <div class="alert alert-<?php echo $_SESSION['notice']['type'] ?>">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <?php echo $_SESSION['notice']['message'] ?>
+      </div>
+
+    <?php
+      unset( $_SESSION['notice'] );
+      }
+    ?>
+    
+    <input autofocus type="text" class="input-block-level" placeholder="User ID" name="user_id" />
+    <input type="password" class="input-block-level" placeholder="Password" name="password" />
+    <button type="submit" class="btn btn-block btn-large btn-primary" name="signin_form_submit">Sign in</button>
 
     <br>
     <span class="pull-right">
       <a href="?forgot_password=true">Forgot your password?</a>
     </span>
+    </form>
+
 
 
     <?php } ?>

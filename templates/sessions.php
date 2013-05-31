@@ -13,7 +13,7 @@
       ?>
 
         <form action="routes.php" method="post" name="display_comments_form">
-          <button value="<?php echo $session_id ?>" class="btn btn-block" type="submit" name="display_comments_form_submit">View comments &raquo;</button>
+          <button value="<?php echo $session_id ?>" class="btn" type="submit" name="display_comments_form_submit">View comments &raquo;</button>
         </form>
 
       </div><!-- .span9 -->

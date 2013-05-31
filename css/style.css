@@ -129,6 +129,11 @@ header {
   background-color: inherit;
   color: #efefef;
 }
+.main .nav>li>a:hover, .main .nav>li>a:focus, footer a:hover, footer a:focus {
+  text-decoration: none;
+  background-color: #efefef;
+  color: inherit;
+}
 
 footer {
   margin-top: 30px;
@@ -147,6 +152,7 @@ footer, .push {
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
   border: none;
+  background: #efefef;
 }
 
 aside {
@@ -184,4 +190,13 @@ aside .btn {
   background-origin: padding-box;
   background-size: auto;
   text-shadow: none;
+}
+
+.btn-primary {
+  color: #efefef;
+  background-color: #2daebf;
+}
+
+.btn-primary:hover {
+  background-color: #007d9a;
 }

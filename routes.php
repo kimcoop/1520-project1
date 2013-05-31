@@ -2,6 +2,23 @@
   
   require_once('functions.php');
   session_start();
+
+  if ( isset($_POST['signin_form_submit']) ) {
+    if ( signin( $_POST['user_id'], $_POST['password'] ) ) {
+
+      if ( is_student() )
+        header('Location: student.php');
+      else
+        header('Location: advisor.php');
+      
+    } else {
+      display_notice( 'Error logging in.', 'error' );
+      header('Location: index.php');
+    }
+
+    exit();
+
+  }
   
   if ( isset($_POST['search_student_form_submit']) ) {
     find_user_by_psid_or_name( $_POST['search_term'] );
@@ -23,23 +40,11 @@
 
   if ( isset($_POST['display_comments_form_submit']) ) {
     display_session_comments( $_POST['display_comments_form_submit'] );
-    header('Location: advisor.php') ;
+    header('Location: advisor.php?tab=advising_sessions');
     exit();
   }
 
-  if( $_GET['action'] == 'signin' ) {
-    // TODO: check credentials
-    signin();
-
-    if ( is_student() ) {
-      header('Location: student.php') ;
-    } else {
-      header('Location: advisor.php') ;
-    }
-
-    exit();
-
-  } else if ( $_GET['action'] = 'logout' ) {
+  if ( $_GET['action'] = 'logout' ) {
 
     session_destroy();
     // TODO: logout page
