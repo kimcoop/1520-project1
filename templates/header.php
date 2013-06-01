@@ -1,4 +1,9 @@
-<?php require('functions.php'); ?>
+<?php 
+
+require_once('functions.php'); 
+require_once('models/course.php');
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">

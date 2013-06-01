@@ -89,8 +89,8 @@ function should_show_notice() {
 
   *
   */
-  
-$courses = populate_courses();
+
+//$courses = populate_courses(); // populate onload for faster recall
 $reqs = array();
 
 function populate_courses() {
@@ -113,11 +113,16 @@ function populate_reqs() {
 }
 
 
-function get_courses_by_term() {
-  echo "A list of all courses he / she has taken, with grades, shown term by term";  
-  echo "<br>";
-
-  return array("foo", "bar", "hallo", "world");
+function get_courses_by_term( $psid ) {
+  $courses = populate_courses();
+  
+  foreach( $courses as $course ) {
+    if ( $course->psid == $psid ) {
+      $courses_by_term[ $course->term ][] = $course;
+    }
+  }
+  
+  return $courses_by_term;
 }
 
 function get_courses_by_department() {

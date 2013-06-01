@@ -1,4 +1,4 @@
-<?
+<?php
 
   class Course {
     public $department, $number, $term, $psid, $grade;
@@ -12,12 +12,11 @@
       $this->grade = $pieces[4];
     }
 
-    function print_course() {
-      echo "<br>".$this->department;
-      echo "<br>".$this->number;
-      echo "<br>".$this->term;
-      echo "<br>".$this->psid;
-      echo "<br>".$this->grade;
+    public function print_course() {
+      echo "<strong>$this->department $this->number</strong> 
+            $this->term
+            $this->psid
+            $this->grade";
     }
   }
 
