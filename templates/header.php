@@ -2,6 +2,7 @@
 
 require_once('functions.php'); 
 require_once('models/course.php');
+require_once('models/requirement.php');
 
 ?>
 

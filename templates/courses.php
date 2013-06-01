@@ -50,16 +50,26 @@
 <div class="row">
   <div class="<?php echo (is_student() ? 'span12': 'span9') ?>">
     <h3>CS graduation requirements</h3>
-    <p>
-      
     <?php
+      
+        $courses = array();
 
-    $courses = get_requirements(); 
-    foreach( $courses as $course ) {
-      echo $course;
-    }
+        if ( is_student() )
+          $reqs = get_requirements( $_SESSION['psid'] );
+        else
+          $reqs = get_requirements( $_SESSION['student']['psid'] );
 
-    ?>
+          ksort( $reqs );
+          foreach( $reqs as $req ) {
+            echo "<div class='span3 well outlined'>";
+            // echo "<h4>$term</h4>";
+            // foreach( $courses as $course ) {
+            $req -> print_requirement();
+            // }
+            echo "</div>";
+          }
+
+      ?>
     </p>
     
   </div>

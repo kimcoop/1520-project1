@@ -12,6 +12,10 @@
       $this->grade = $pieces[4];
     }
 
+    public function commatize() {
+      return "$this->department,$this->number";
+    }
+
     public function print_course() {
       echo "<strong>$this->department $this->number</strong> 
             $this->term

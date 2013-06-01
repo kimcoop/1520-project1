@@ -153,6 +153,8 @@ footer, .push {
   -moz-box-shadow: none;
   border: none;
   background: #efefef;
+  overflow: hidden;
+  word-wrap: break-word;
 }
 
 .well.outlined {

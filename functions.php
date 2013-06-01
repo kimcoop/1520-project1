@@ -1,6 +1,7 @@
 <?php
 
 require_once('models/course.php');
+require_once('models/requirement.php');
 
 define( "STUDENT_ACCESS_LEVEL", 0 );
 define( "ADVISOR_ACCESS_LEVEL", 1 );
@@ -91,11 +92,11 @@ function should_show_notice() {
   */
 
 //$courses = populate_courses(); // populate onload for faster recall
-$reqs = array();
+// $reqs = array();
 
 function populate_courses() {
   $courses = array();
-  $file_handle = fopen( COURSES_FILE , "r");
+  $file_handle = fopen( COURSES_FILE , "r" );
   
   while ( !feof($file_handle) ) {
     $line = fgets( $file_handle );
@@ -109,6 +110,17 @@ function populate_courses() {
 }
 
 function populate_reqs() {
+  $reqs = array();
+  $file_handle = fopen( REQS_FILE , "r" );
+  
+  while ( !feof($file_handle) ) {
+    $line = fgets( $file_handle );
+    $req = new Requirement( $line );
+    $reqs[] = $req;
+  }
+
+  fclose( $file_handle );
+  return $reqs;
 
 }
 
@@ -132,13 +144,19 @@ function get_courses_by_department() {
   return array("course1", "course2", "course3", "course4");
 }
 
-function get_requirements() {
-  echo "N – requirement is Not satisfied";
-  echo "<br>";
-  echo "<br>";
-  echo "S [Course] [Term] [Grade] – requirements is Satisftied by the indicated course in the indicated term with the indicated grade. Note that all requirements must be satisfied with a grade of C or better. Any grades of C- or lower cannot satisfy any requirements. See below for details on the CS graduation requirements.";
+function get_requirements( $psid ) {
+  $requirements = [];
+  $reqs = populate_reqs();
+  
+  foreach( $reqs as $req ) {
+    // if ( $req->psid == $psid ) {
+      // $reqs_by_term[ $req->term ][] = $req;
+      $requirements[] = $req;
+    // }
+  }
+  
+  return $requirements;
 
-  return array("foo1", "bar1", "hallo1", "world1");
 }
 
 
