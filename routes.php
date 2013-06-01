@@ -19,12 +19,6 @@
     exit();
 
   }
-  
-  if ( isset($_POST['search_student_form_submit']) ) {
-    find_user_by_psid_or_name( $_POST['search_term'] );
-    header('Location: advisor.php') ;
-    exit();
-  }
 
   if ( isset($_POST['log_advising_session_form_submit']) ) {
     log_advising_session();
@@ -44,11 +38,23 @@
     exit();
   }
 
-  if ( $_GET['action'] = 'logout' ) {
+  if ( $_GET['action'] == 'logout' ) {
 
     session_destroy();
-    // TODO: logout page
     header('Location: index.php') ;
+    exit();
+
+  } else if ( isset($_GET['student_search_term']) ) {
+    if ( find_user_by_psid_or_name( $_GET['student_search_term'] )) {
+      display_notice( 'User found.', 'success' );
+      $user_id = $_SESSION['student']['user_id'];
+      header( "Location: advisor.php?student_id=$user_id" );
+    } else {
+      $search = $_GET['student_search_term'];
+      display_notice( "User '$search' not found.", 'error' );
+      header( 'Location: advisor.php' );
+    }
+
     exit();
 
   } else {

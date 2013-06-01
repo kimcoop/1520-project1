@@ -27,6 +27,7 @@
       <p class="text-success">
         Logging current advising session
       </p>
+      <a href="advisor.php" class="btn btn-block btn-primary">End advising session</a>
 
   <?php
     }

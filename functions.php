@@ -145,11 +145,37 @@ function get_requirements() {
   */
 
   function find_user_by_psid_or_name( $search_term ) {
-    $_SESSION['student']['first_name'] = 'Kim';
-    $_SESSION['student']['user_id'] = 3538156;
-    $_SESSION['student']['psid'] = 3538156;
-    $_SESSION['student']['full_name'] = 'Kim Coop';
-    $_SESSION['student']['last_name'] = 'Coop';
+    $valid = false;
+    if ( $search_term ) {
+
+      $file_handle = fopen( USERS_FILE , "r");
+      
+      while ( !feof($file_handle) ) {
+        $line = fgets( $file_handle );
+        $pieces = explode( ":", $line );
+        $psid = $pieces[2];
+        $full_name = "$pieces[5] $pieces[4]";
+        if ( $psid == $search_term || $full_name == $search_term ) {
+
+          $valid = true;
+          $_SESSION['student']['user_id'] = $pieces[0];
+          $_SESSION['student']['psid'] = $pieces[2];
+          $_SESSION['student']['email'] = $pieces[3];
+          $_SESSION['student']['last_name'] = $pieces[4];
+          $_SESSION['student']['first_name'] = $pieces[5];
+          $_SESSION['student']['full_name'] = $full_name;
+          $_SESSION['student']['access_level'] = $pieces[6];
+
+          break;
+        }
+      }
+
+      fclose( $file_handle );
+      
+    }
+
+    return $valid;
+
   }
 
   function log_advising_session() {

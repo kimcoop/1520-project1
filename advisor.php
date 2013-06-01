@@ -69,10 +69,10 @@
         ?>
         <p>Welcome to your advisor dashboard. Use the search form below to look up a student by student's PeopleSoft ID or first name/last name.</p>
 
-        <form class="navbar-search pull-left" action="routes.php" method="post" name="search_student_form">
+        <form class="navbar-search pull-left" action="routes.php" method="get" name="search_student_form">
           <div class="input-prepend">
               <span class="add-on"><i class="icon-search"></i></span>
-              <input placeholder="Search" type="text" name="search_term">
+              <input autofocus placeholder="Search term" type="text" name="student_search_term">
           </div>
           <button type="submit" class="btn search-button" name="search_student_form_submit">Search</button>
         </form>
