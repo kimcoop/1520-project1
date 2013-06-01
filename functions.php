@@ -1,5 +1,7 @@
 <?php
 
+require_once('models/course.php');
+
 define( "STUDENT_ACCESS_LEVEL", 0 );
 define( "ADVISOR_ACCESS_LEVEL", 1 );
 define( "USERS_FILE", 'files/users.txt' );
@@ -60,29 +62,6 @@ function should_show_notice() {
   return isset( $_SESSION['notice'] );
 }
 
-//Dept:Number:Term:PSID:Grade
-class StudentCourse {
-  var $department, $number, $term, $psid, $grade;
-
-  function __construct() {
-    print "In constructor\n";
-    $this->$department = "";
-    $this->$number = "1234";
-    $this->$term = "";
-    $this->$psid = "";
-    $this->$grade = "";
-  }
-
-  function print_student_course() {
-    echo $this->$department;
-    echo $this->$number;
-    echo $this->$term;
-    echo $this->$psid;
-    echo $this->$grade;
-  }
-}
-
-
   /* 
   *
 
@@ -110,6 +89,28 @@ class StudentCourse {
 
   *
   */
+  
+$courses = populate_courses();
+$reqs = array();
+
+function populate_courses() {
+  $courses = array();
+  $file_handle = fopen( COURSES_FILE , "r");
+  
+  while ( !feof($file_handle) ) {
+    $line = fgets( $file_handle );
+    $course = new Course( $line );
+    $courses[] = $course;
+  }
+
+  fclose( $file_handle );
+  return $courses;
+
+}
+
+function populate_reqs() {
+
+}
 
 
 function get_courses_by_term() {
