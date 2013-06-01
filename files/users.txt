@@ -1,3 +1,4 @@
+test:test:1234567:<youremail>:Montoya:Inigo:1
 Swordsman:IAmNotLeftHanded:1234567:<youremail>:Montoya:Inigo:0
 Spaceman1:BeamMeUp10:7654321:<youremail>:Kirk:James:0
 Spaceman22:EarlGreyHot:2222222:<youremail>:Picard:JeanLuc:0

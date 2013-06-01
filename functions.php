@@ -1,32 +1,39 @@
 <?php
 
 define( "STUDENT_ACCESS_LEVEL", 0 );
-define( "ADVISOR_ACCESS_LEVEL", 0 );
+define( "ADVISOR_ACCESS_LEVEL", 1 );
 define( "USERS_FILE", 'files/users.txt' );
 define( "COURSES_FILE", 'files/courses.txt' );
 define( "REQS_FILE", 'files/reqs.txt' );
 
 function signin( $user_id, $password ) {
-  $file_handle = fopen( USERS_FILE , "r");
   $valid = false;
-  
-  while ( !feof($file_handle) ) {
-    $line = fgets( $file_handle );
-    $pieces = explode( ":", $line );
-    if ( $pieces[0] == $user_id && $pieces[1] == $password ) {
-      //UserID:Password:PSID:Email:LastName:FirstName:Access_Level
-      $valid = true;
-      $_SESSION['user_id'] = $user_id;
-      $_SESSION['last_name'] = $pieces[4];
-      $_SESSION['first_name'] = $pieces[5];
-      $_SESSION['full_name'] = $pieces[4];
-      $_SESSION['access_level'] = $pieces[6];
+  if ( $user_id && $password ) {
+
+    $file_handle = fopen( USERS_FILE , "r");
+    
+    while ( !feof($file_handle) ) {
+      $line = fgets( $file_handle );
+      $pieces = explode( ":", $line );
+      if ( $pieces[0] == $user_id && $pieces[1] == $password ) {
+        //UserID:Password:PSID:Email:LastName:FirstName:Access_Level
+        $valid = true;
+        $_SESSION['user_id'] = $user_id;
+        $_SESSION['psid'] = $pieces[2];
+        $_SESSION['email'] = $pieces[3];
+        $_SESSION['last_name'] = $pieces[4];
+        $_SESSION['first_name'] = $pieces[5];
+        $_SESSION['full_name'] = "$pieces[5] $pieces[4]";
+        $_SESSION['access_level'] = $pieces[6];
+        break;
+      }
     }
+
+    fclose( $file_handle );
+    
   }
 
-  fclose( $file_handle );
-
-  return valid;
+  return $valid;
 }
 
 function is_logged_in() {
