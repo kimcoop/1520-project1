@@ -71,8 +71,8 @@ hr.dotted {
 
 h1,h2,h3 {
   font-weight: lighter;
-  text-shadow: 1px 1px 0px #efefef;
-  color: #57525e;
+  /*text-shadow: 1px 1px 0px #efefef;*/
+  color: #007d9a;
   font-family: georgia;
   letter-spacing: -1px;
 }
@@ -103,8 +103,8 @@ header, footer {
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
-  background: #57525e;
-  color: #efefef;
+  background: #C3E4ED;
+  color: #555;
 }
 
 header .title {
@@ -112,7 +112,7 @@ header .title {
 }
 
 header {
-  border-bottom: solid 5px #999999;
+  border-bottom: solid 5px #efefef;
   margin-bottom: 20px;
 }
 
@@ -138,7 +138,7 @@ header {
 footer {
   margin-top: 30px;
   padding-top: 15px;
-  border-top: solid 4px #999999;
+  border-top: solid 4px #efefef;
 }
 
 footer, .push {
@@ -188,7 +188,6 @@ aside .btn {
   position: relative;
   cursor: pointer;
   font-size: 13px;
-  font-weight: bold;
   line-height: 1;
   text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.1);
   background-color: #eee;
@@ -200,9 +199,13 @@ aside .btn {
   text-shadow: none;
 }
 
+a.btn {
+  font-weight: normal;
+}
+
 .btn-primary {
-  color: #efefef;
-  background-color: #2daebf;
+  color: #555;
+  background-color: #C3E4ED;
 }
 
 .btn-primary:hover {
