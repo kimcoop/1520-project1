@@ -61,12 +61,22 @@
 
           ksort( $reqs );
           foreach( $reqs as $req ) {
-            echo "<div class='well outlined'>";
-            echo "<h4>$req->title [$req->satisfied]</h4>";
-            // foreach( $courses as $course ) {
-            $req -> print_requirement();
-            // }
-            echo "</div>";
+            ?>
+
+            <div class="<?php echo (is_student() ? 'span12': 'span9') ?>">
+
+              <?php
+              
+              echo "<p>$req->title ";
+              if ( $req->satisfied ) echo "<span class='text-success'>[S]</span>";
+              else echo "<span class='text-error'>[N]</span>";
+              echo "</p>";
+              ?>
+
+            </div>
+            <?php
+            
+            
           }
 
       ?>

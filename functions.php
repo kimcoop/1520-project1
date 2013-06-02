@@ -133,7 +133,7 @@ function get_courses_for_user( $psid, $courses ) {
 
   foreach( $courses as $course ) {
     if ( $course->psid == $psid ) {
-      $user_courses[] = "$course->department,$course->number";
+      $user_courses[] = $course;
     }
   }
   
@@ -165,7 +165,7 @@ function get_requirements( $psid ) {
   foreach( $graduation_reqs as $requirement ) {
     // if the student has taken the $req->$reqs
     if ( requirements_met($psid, $requirement->reqs) ) {
-      $requirement->satisfied = true; // this defaults to false
+      $requirement->satisfied = true; // this defaults to falsej
     }
 
     $requirements[] = $requirement;
@@ -180,13 +180,23 @@ function requirements_met( $psid, $reqs ) {
   // if user_courses includes each $req in $reqs
   // then true
   foreach( $reqs as $req ) {
-    echo "<br>$req";
-    if ( !in_array($req, $_SESSION['user_courses']) ) { // TODO: commatize
-      return false;
+    $match = false;
+    
+    $req_course_department = explode( ",", $req )[0];
+    $req_course_number = (int) explode( ",", $req )[1];
+
+    foreach( $_SESSION['user_courses'] as $user_course ) {
+      if ( $user_course->is_passing_grade() && $user_course->department == $req_course_department && $user_course->number == $req_course_number ) {
+        $match = true;
+        break;
+      }
     }
+
+    if ( $match == false ) // if we've gone through the user's taken courses and haven't found a match, reqs not met
+      return false;
   }
 
-  return true;
+  return true; // if we reach this point, true
 
 }
 
