@@ -6,9 +6,9 @@
       $courses = array();
 
       if ( is_student() )
-        $courses_per_term = get_courses_by_term( $_SESSION['psid'] );
+        $courses_per_term = get_courses_by_term( $_SESSION['psid'], $_SESSION['all_courses'] );
       else
-        $courses_per_term = get_courses_by_term( $_SESSION['student']['psid'] );
+        $courses_per_term = get_courses_by_term( $_SESSION['student']['psid'], $_SESSION['all_courses'] );
 
         ksort( $courses_per_term );
         foreach( $courses_per_term as $term => $courses ) {
@@ -26,7 +26,7 @@
   </div>
 </div>
 
-<hr>
+<hr class="dotted">
 
 <div class="row">
   <div class="<?php echo (is_student() ? 'span12': 'span9') ?>">
@@ -45,7 +45,7 @@
   </div>
 </div>
 
-<hr>  
+<hr class="dotted">  
 
 <div class="row">
   <div class="<?php echo (is_student() ? 'span12': 'span9') ?>">
@@ -61,8 +61,8 @@
 
           ksort( $reqs );
           foreach( $reqs as $req ) {
-            echo "<div class='span3 well outlined'>";
-            // echo "<h4>$term</h4>";
+            echo "<div class='well outlined'>";
+            echo "<h4>$req->title [$req->satisfied]</h4>";
             // foreach( $courses as $course ) {
             $req -> print_requirement();
             // }

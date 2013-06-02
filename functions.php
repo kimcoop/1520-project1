@@ -13,13 +13,12 @@ function signin( $user_id, $password ) {
   $valid = false;
   if ( $user_id && $password ) {
 
-    $file_handle = fopen( USERS_FILE , "r");
+    $file_handle = fopen( USERS_FILE , "r" );
     
     while ( !feof($file_handle) ) {
       $line = fgets( $file_handle );
       $pieces = explode( ":", $line );
       if ( $pieces[0] == $user_id && $pieces[1] == $password ) {
-        //UserID:Password:PSID:Email:LastName:FirstName:Access_Level
         $valid = true;
         $_SESSION['user_id'] = $user_id;
         $_SESSION['psid'] = $pieces[2];
@@ -34,6 +33,10 @@ function signin( $user_id, $password ) {
 
     fclose( $file_handle );
     
+  }
+
+  if ( $valid && is_student() ) {
+    $_SESSION['user_courses'] = get_courses_for_user( $_SESSION['psid'], $_SESSION['all_courses'] );
   }
 
   return $valid;
@@ -91,8 +94,8 @@ function should_show_notice() {
   *
   */
 
-//$courses = populate_courses(); // populate onload for faster recall
-// $reqs = array();
+session_start();
+$_SESSION['all_courses'] = populate_courses(); // populate onload for faster recall. TODO: make global not session
 
 function populate_courses() {
   $courses = array();
@@ -125,8 +128,19 @@ function populate_reqs() {
 }
 
 
-function get_courses_by_term( $psid ) {
-  $courses = populate_courses();
+function get_courses_for_user( $psid, $courses ) {
+  $user_courses = array();
+
+  foreach( $courses as $course ) {
+    if ( $course->psid == $psid ) {
+      $user_courses[] = "$course->department,$course->number";
+    }
+  }
+  
+  return $user_courses;
+}
+
+function get_courses_by_term( $psid, $courses ) {
   
   foreach( $courses as $course ) {
     if ( $course->psid == $psid ) {
@@ -146,16 +160,33 @@ function get_courses_by_department() {
 
 function get_requirements( $psid ) {
   $requirements = [];
-  $reqs = populate_reqs();
-  
-  foreach( $reqs as $req ) {
-    // if ( $req->psid == $psid ) {
-      // $reqs_by_term[ $req->term ][] = $req;
-      $requirements[] = $req;
-    // }
+  $graduation_reqs = populate_reqs();
+
+  foreach( $graduation_reqs as $requirement ) {
+    // if the student has taken the $req->$reqs
+    if ( requirements_met($psid, $requirement->reqs) ) {
+      $requirement->satisfied = true; // this defaults to false
+    }
+
+    $requirements[] = $requirement;
+
   }
   
   return $requirements;
+
+}
+
+function requirements_met( $psid, $reqs ) {
+  // if user_courses includes each $req in $reqs
+  // then true
+  foreach( $reqs as $req ) {
+    echo "<br>$req";
+    if ( !in_array($req, $_SESSION['user_courses']) ) { // TODO: commatize
+      return false;
+    }
+  }
+
+  return true;
 
 }
 

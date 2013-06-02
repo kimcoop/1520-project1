@@ -1,10 +1,11 @@
 <?php
 
   class Requirement {
-    public $title, $department, $number, $reqs;
+    public $title, $reqs, $satisfied;
 
     function __construct( $line ) {
       $pieces = explode( ":", $line );
+      $this->satisfied = false; // default
       // Req:Dept1,Number1|Dept2,Number2|...|DeptN,NumberN
       $this->title = $pieces[0];
       $this->reqs = explode( "|", $pieces[1] );
