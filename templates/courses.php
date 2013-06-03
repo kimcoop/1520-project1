@@ -46,12 +46,12 @@
         $courses_by_department = get_courses_by_department( $_SESSION['viewing_psid'], $_SESSION['all_courses'] );
 
         ksort( $courses_by_department );
-        foreach( $courses_by_department as $term => $courses ) {
+        foreach( $courses_by_department as $department => $courses ) {
           ?>
 
           <tr>
             <td>
-              <?php echo $term ?>
+              <?php echo $department ?>
             </td>
             <td>
               <?php

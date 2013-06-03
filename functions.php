@@ -159,7 +159,7 @@ function get_courses_by_department( $psid, $courses ) {
 
   foreach( $courses as $course ) {
     if ( $course->psid == $psid ) {
-      $courses_by_department[ $course->term ][] = $course;
+      $courses_by_department[ $course->department ][] = $course;
     }
   }
   
