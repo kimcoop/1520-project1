@@ -50,37 +50,65 @@
 <div class="row">
   <div class="<?php echo (is_student() ? 'span12': 'span9') ?>">
     <h3>CS graduation requirements</h3>
+    <table class="table table-hover">
+
     <?php
-      
-        $courses = array();
 
         if ( is_student() )
-          $reqs = get_requirements( $_SESSION['psid'] );
+          $viewing_psid = $_SESSION['psid'];
         else
-          $reqs = get_requirements( $_SESSION['student']['psid'] );
+          $viewing_psid = $_SESSION['student']['psid'];
+
+        $reqs = get_requirements( $viewing_psid );
 
           ksort( $reqs );
           foreach( $reqs as $req ) {
-            ?>
+          ?>
+            <tr>  
+              <td>
+                <?php echo $req->title ?>
+              </td>
 
-            <div class="<?php echo (is_student() ? 'span12': 'span9') ?>">
+              <td>
+                <?php
+                
+                  if ( $req->satisfied ) {
 
-              <?php
+                ?>
+
+                  <span class='text-success'>S</span>
+
+                <?php
+
+                  } else { 
+
+                ?>
+                  <span class='text-error'>N</span>
               
-              echo "<p>$req->title ";
-              if ( $req->satisfied ) echo "<span class='text-success'>[S]</span>";
-              else echo "<span class='text-error'>[N]</span>";
-              echo "</p>";
+                <?php } ?>
+              </td>
+              <td>
+            
+              <?php
+                if ( $req->satisfied ) {
+                  $req->print_satisfying_course( $viewing_psid, $_SESSION['user_courses'] );
+                } else {
+                  echo "<span class='muted'>Courses that satisfy this requirement: ";
+                  $req->print_requirements();
+                  echo "</span>";
+                }
               ?>
 
-            </div>
+              </td>
+            </tr>
+
+            
             <?php
             
-            
-          }
+            } // foreach
 
-      ?>
-    </p>
+          ?>
+    </table>
     
   </div>
 </div>

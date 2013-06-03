@@ -163,41 +163,40 @@ function get_requirements( $psid ) {
   $graduation_reqs = populate_reqs();
 
   foreach( $graduation_reqs as $requirement ) {
-    // if the student has taken the $req->$reqs
-    if ( requirements_met($psid, $requirement->reqs) ) {
-      $requirement->satisfied = true; // this defaults to falsej
-    }
-
+    $requirement->satisfied = requirements_met( $psid, $requirement->reqs );
     $requirements[] = $requirement;
-
   }
   
   return $requirements;
 
 }
 
-function requirements_met( $psid, $reqs ) {
-  // if user_courses includes each $req in $reqs
-  // then true
-  foreach( $reqs as $req ) {
-    $match = false;
+function get_user_course_record( $psid, $department, $number ) {
+
+  foreach( $_SESSION['user_courses'] as $user_course ) {
+    if ( $user_course->is_passing_grade() && $user_course->department == $department && $user_course->number == $number ) {
+      return $user_course;
+    }
+  }
+
+  return NULL;
+
+}
+
+function requirements_met( $psid, $course_options ) {
+  
+  foreach( $course_options as $req ) {
     
     $req_course_department = explode( ",", $req )[0];
     $req_course_number = (int) explode( ",", $req )[1];
 
-    foreach( $_SESSION['user_courses'] as $user_course ) {
-      if ( $user_course->is_passing_grade() && $user_course->department == $req_course_department && $user_course->number == $req_course_number ) {
-        $match = true;
-        break;
-      }
+    $user_course = get_user_course_record( $psid, $req_course_department, $req_course_number);
+    if ( isset($user_course) ) {
+      return true;
     }
 
-    if ( $match == false ) // if we've gone through the user's taken courses and haven't found a match, reqs not met
-      return false;
   }
-
-  return true; // if we reach this point, true
-
+  return false;
 }
 
 

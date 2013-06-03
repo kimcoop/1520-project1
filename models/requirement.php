@@ -12,13 +12,30 @@
       
     }
 
-    public function print_requirement() {
-      echo "<strong>$this->title</strong>";
-      echo "<br>";
+    public function print_satisfying_course( $psid, $user_courses ) {
+      $course = $this->get_satisfying_course();
+      echo $course->titleize();
+    }
+
+    public function get_satisfying_course( $psid, $user_courses ) {
       foreach( $this->reqs as $req ) {
-        echo $req; // comma
+        $req_course_department = explode( ",", $req )[0];
+        $req_course_number = (int) explode( ",", $req )[1];
+        $course = get_user_course_record( $psid, $req_course_department, $req_course_number);
+
+        if ( isset( $course ) )
+          return $course;
       }
-      echo "<br>";
+    }
+
+    public function print_requirements() {
+      foreach( $this->reqs as $index => $req ) {
+        $department = explode( ",", $req )[0];
+        $number = (int) explode( ",", $req )[1];
+        echo $department . "" . $number; // strip comma
+        if ( $index != count($this->reqs) -1 )
+          echo ", ";
+      }
     }
   }
 
