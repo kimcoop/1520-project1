@@ -10,7 +10,7 @@
 
         <tr>
           <td>
-            Session <?php echo $index ?>
+            Session <?php echo $index + 1 ?>
           </td>
           <td>
 

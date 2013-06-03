@@ -13,7 +13,7 @@
 
         <tr>
           <td>
-            Session <?php echo $index ?>
+            Note <?php echo $index + 1 ?>
           </td>
           <td>
 

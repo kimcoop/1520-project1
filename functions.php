@@ -298,7 +298,7 @@ function requirements_met( $psid, $course_options ) {
       
       $pieces = explode( ":", $line );
       if ( $pieces[0] == $psid ) {
-        $advising_note = array( "timestamp" => $pieces[1] );
+        $advising_note = array( "timestamp" => make_date( $pieces[1]) );
         $advising_notes[] = $advising_note;
       }
 
@@ -329,6 +329,20 @@ function requirements_met( $psid, $course_options ) {
 
   }
 
+  function make_date( $timestamp ) {
+    $format = 'l F jS, Y \a\t g:ia';
+
+    $pieces = explode( "-", $timestamp );
+    $year = $pieces[0];
+    $month = $pieces[1];
+    $day = $pieces[2];
+    $hour = $pieces[3];
+    $minute = $pieces[4];
+    $second = $pieces[5];
+
+    return date( $format, mktime( $hour, $minute, $second, $month, $day, $year ));
+  }
+
   function get_advising_sessions( $psid ) {
     
     $advising_sessions = array();
@@ -339,7 +353,7 @@ function requirements_met( $psid, $course_options ) {
       
       $pieces = explode( ":", $line );
       if ( $pieces[0] == $psid ) {
-        $advising_session = array( "timestamp" => $pieces[1] );
+        $advising_session = array( "timestamp" => make_date( $pieces[1]) );
         $advising_sessions[] = $advising_session;
       }
 
