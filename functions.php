@@ -12,6 +12,9 @@ define( "REQS_FILE", 'files/reqs.txt' );
 define( "SESSIONS_FILE", 'files/sessions.txt' );
 define( "NOTES_FILE", 'files/notes.txt' );
 
+define( "MAILER_SUBJECT", "Your AdvisorCloud Credentials" );
+define( "MAILER_SENDER", "kac162@pitt.edu" );
+
 function signin( $user_id, $password ) {
   $valid = false;
   if ( $user_id && $password ) {
@@ -286,7 +289,7 @@ function requirements_met( $psid, $course_options ) {
         $advising_session = array( "timestamp" => $pieces[1] );
         $advising_sessions[] = $advising_session;
       }
-      
+
     }
 
     fclose( $file_handle );
@@ -295,6 +298,55 @@ function requirements_met( $psid, $course_options ) {
 
   function get_session_comments( $session_id ) {
    return array("comment1", "comment2", "comment3", "comment4"); 
+  }
+
+  /*
+  *
+  *
+  */
+
+  function get_user_details( $user_id ) {
+    $file_handle = fopen( USERS_FILE , "r" );
+    $details = NULL;
+      
+    while ( !feof($file_handle) ) {
+      $line = fgets( $file_handle );
+      $pieces = explode( ":", $line );
+      if ( $pieces[0] == $user_id ) {
+        $details = array( "email"=> $pieces[3], "password"=>$pieces[1] );
+        break;
+      }
+    }
+
+    fclose( $file_handle );
+    return $details;
+    
+  }
+
+  function send_password( $user_id ) {
+
+    $details = get_user_details( $user_id );
+
+    if ( isset( $details ) ) {
+
+      $email = $details[ 'email' ];
+      $password = $details[ 'password' ];
+      $format = "Your password is $s (for user ID %s)";
+
+      $to      = $email;
+      $subject = MAILER_SUBJECT;
+      $message = sprintf( $format, $password, $user_id );
+      $headers = 'From: ' .MAILER_SENDER . '' . "\r\n" .
+          'Reply-To: ' .MAILER_SENDER . '' . "\r\n" .
+          'X-Mailer: PHP/' . phpversion();
+
+      mail( $to, $subject, $message, $headers );
+      return true;
+
+    } else {
+      return false;
+    }
+
   }
 
 ?>

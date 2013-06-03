@@ -44,10 +44,12 @@
     <button type="submit" class="btn btn-block btn-large btn-primary" name="signin_form_submit">Sign in</button>
 
     <br>
+    <br>
     <span class="pull-right">
-      <a href="?forgot_password=true">Forgot your password?</a>
+      <label class="checkbox">
+        <input type="checkbox" name="forgot_password"> Forgot password
+      </label>
     </span>
-    </form>
 
 
 

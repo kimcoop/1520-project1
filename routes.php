@@ -4,7 +4,18 @@
   session_start();
 
   if ( isset($_POST['signin_form_submit']) ) {
-    if ( signin( $_POST['user_id'], $_POST['password'] ) ) {
+
+    if ( $_POST['forgot_password'] == 'on' && isset($_POST['user_id']) ) {
+
+      if ( send_password( $_POST['user_id'] ) ) {
+        display_notice( 'Please check your email for the password and then try again.', 'success' );
+      } else {
+        display_notice( 'User ID not recognized. Please try again.', 'error' );
+      }
+
+      header( 'Location: index.php' );
+
+    } else if ( signin( $_POST['user_id'], $_POST['password'] ) ) {
 
       if ( is_student() )
         header('Location: student.php');
@@ -13,7 +24,7 @@
       
     } else {
       display_notice( 'Error logging in.', 'error' );
-      header('Location: index.php');
+      header( 'Location: index.php' );
     }
 
     exit();
