@@ -44,7 +44,7 @@ require_once('models/advising_session.php');
       <header>
         <div class="container nav-container">
           <ul class="nav nav-pills pull-right">
-            <li><a href="#">
+            <li><a href="<?php echo get_root_url() ?>">
               Welcome, <?php echo $_SESSION['full_name'] ?>
             </a></li>
             <li>
@@ -53,7 +53,11 @@ require_once('models/advising_session.php');
               </a>
             </li>
           </ul>
-          <h3 class="title muted">Advisor Cloud</h3>
+          <h3 class="title muted">
+            <a href="<?php echo get_root_url() ?>">
+            Advisor Cloud
+            </a>
+          </h3>
         </div><!-- .container -->
       </header>
 

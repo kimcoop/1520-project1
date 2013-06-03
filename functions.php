@@ -75,6 +75,13 @@ function should_show_notice() {
   return isset( $_SESSION['notice'] );
 }
 
+function get_root_url() {
+  if ( is_student() ) 
+    return 'student.php'; 
+  else
+    return 'advisor.php';
+}
+
   /* 
   *
 
@@ -271,9 +278,46 @@ function requirements_met( $psid, $course_options ) {
     display_notice( 'Advising session notes added.', 'success' );
   }
 
-  function get_advising_session_notes( $session_id ) {
-    //this option will show a list of advising note timestamps, ordered from most recent to least recent. Also shown will be a radiobutton for each timestamp, so that the advisor may select one of them. When a timestamp is selected and submitted, the advisor will see the comments associated with that timestamp.
-    return array("notes1", "notes2", "notes3", "notes4");
+
+  function get_advising_notes( $psid ) {
+
+    $advising_notes = array();
+    $file_handle = fopen( NOTES_FILE , "r" );
+
+    while ( !feof($file_handle) ) {
+      $line = fgets( $file_handle );
+      
+      $pieces = explode( ":", $line );
+      if ( $pieces[0] == $psid ) {
+        $advising_note = array( "timestamp" => $pieces[1] );
+        $advising_notes[] = $advising_note;
+      }
+
+    }
+
+    fclose( $file_handle );
+    return $advising_notes;
+
+  }
+
+  function should_show_session_notes( $session_timestamp ) {
+    $should_show = isset( $_SESSION['notes'][ $session_timestamp ]);
+    return $should_show;
+  }
+
+  function show_session_notes( $session_timestamp ) {
+    
+    return $_SESSION['notes'][ $session_timestamp ];
+  }
+
+  function get_advising_session_notes( $psid, $session_timestamp ) {
+    $filename = sprintf( "files/notes/%d:%s.txt", $psid, $session_timestamp );
+    $notes = file_get_contents( $filename );
+
+    $_SESSION['notes'][ $session_timestamp ] = $notes;
+
+    return $notes;
+
   }
 
   function get_advising_sessions( $psid ) {
@@ -294,10 +338,6 @@ function requirements_met( $psid, $course_options ) {
 
     fclose( $file_handle );
     return $advising_sessions;
-  }
-
-  function get_session_comments( $session_id ) {
-   return array("comment1", "comment2", "comment3", "comment4"); 
   }
 
   /*

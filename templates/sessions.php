@@ -3,31 +3,34 @@
 <table class="table table-hover">
   <?php
     $sessions = get_advising_sessions( $_SESSION['viewing_psid'] );
-    foreach( $sessions as $session ) {
-      ?>
+    if ( count($sessions) > 0 ) {
 
-      <tr>
-        <td>
-          Session
-        </td>
-        <td>
-
-        <?php
-          echo $session['timestamp'];
+      foreach( $sessions as $index => $session ) {
         ?>
 
-        </td>
-        <td>
+        <tr>
+          <td>
+            Session <?php echo $index ?>
+          </td>
+          <td>
 
-          <form action="routes.php" method="post" name="display_comments_form">
-            <button value="<?php echo $session_id ?>" class="btn" type="submit" name="display_comments_form_submit">View comments &raquo;</button>
-          </form>
+          <?php
+            echo $session['timestamp'];
+          ?>
 
-        </td>
-      </tr>
+          </td>
+        </tr>
 
       <?php
-    }
+      } // foreach
+    } else {
 
+    ?>
+
+    No advising sessions found.
+
+    <?php
+    }
   ?>
+
 </table>

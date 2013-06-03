@@ -43,9 +43,9 @@
     exit();
   }
 
-  if ( isset($_POST['display_comments_form_submit']) ) {
-    display_session_comments( $_POST['display_comments_form_submit'] );
-    header('Location: advisor.php?tab=advising_sessions');
+  if ( isset($_POST['display_notes_form_submit']) ) {
+    get_advising_session_notes( $_SESSION['viewing_psid'], $_POST['display_notes_form_submit'] );
+    header('Location: advisor.php?tab=advising_notes');
     exit();
   }
 

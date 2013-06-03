@@ -86,6 +86,10 @@ a {
   font-weight: bold;
 }
 
+.title a {
+  font-weight: inherit;
+}
+
 a:hover {
   color: #000;
 }
