@@ -27,6 +27,9 @@ function signin( $user_id, $password ) {
         $_SESSION['first_name'] = $pieces[5];
         $_SESSION['full_name'] = "$pieces[5] $pieces[4]";
         $_SESSION['access_level'] = $pieces[6];
+
+        // so we can use one variable for both roles. overwrite if/when advisor looks up student
+        $_SESSION['viewing_psid'] = $_SESSION['psid'];
         break;
       }
     }
@@ -147,15 +150,20 @@ function get_courses_by_term( $psid, $courses ) {
       $courses_by_term[ $course->term ][] = $course;
     }
   }
-  
   return $courses_by_term;
 }
 
-function get_courses_by_department() {
-  echo "A list of all courses he / she has taken, with grades, shown in alphabetical order by department and in numerical order within a department. For example, if the student has taken MATH 0230, MATH 0220, CS 0445, CS 1501, CS 0401, CHEM 0120 and BIOSC 0160, the resulting order should be: BIOSC 0160, CHEM 0120, CS 0401, CS 0445, CS 1501, MATH 0220, MATH 0230";
-  echo "<br>";
+function get_courses_by_department( $psid, $courses ) {
+  
+  $courses_by_department = array();
 
-  return array("course1", "course2", "course3", "course4");
+  foreach( $courses as $course ) {
+    if ( $course->psid == $psid ) {
+      $courses_by_department[ $course->term ][] = $course;
+    }
+  }
+  
+  return $courses_by_department;
 }
 
 function get_requirements( $psid ) {
@@ -229,6 +237,8 @@ function requirements_met( $psid, $course_options ) {
           $_SESSION['student']['first_name'] = $pieces[5];
           $_SESSION['student']['full_name'] = $full_name;
           $_SESSION['student']['access_level'] = $pieces[6];
+
+          $_SESSION['viewing_psid'] = $_SESSION['student']['psid'];
 
           break;
         }

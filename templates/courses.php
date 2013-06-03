@@ -1,51 +1,77 @@
 <div class="row">
   <div class="<?php echo (is_student() ? 'span12': 'span9') ?>">
     <h3>Courses taken by term</h3>
-    <?php
-    
-      $courses = array();
+    <table class="table table-hover">
+      <?php
 
-      if ( is_student() )
-        $courses_per_term = get_courses_by_term( $_SESSION['psid'], $_SESSION['all_courses'] );
-      else
-        $courses_per_term = get_courses_by_term( $_SESSION['student']['psid'], $_SESSION['all_courses'] );
+        $courses_per_term = get_courses_by_term( $_SESSION['viewing_psid'], $_SESSION['all_courses'] );
 
         ksort( $courses_per_term );
         foreach( $courses_per_term as $term => $courses ) {
-          echo "<div class='span3 well outlined'>";
-          echo "<h4>$term</h4>";
-          foreach( $courses as $course ) {
-            echo "<strong>$course->department $course->number</strong> 
-            $course->grade";
-            echo "<br>";
-          }
-          echo "</div>";
-        }
+        ?>
 
-    ?>
+          <tr>
+            <td>
+              <?php echo $term ?>
+            </td>
+            <td>
+
+              <?php
+              
+              foreach( $courses as $course ) {
+                $course->print_with_grade();
+                echo "<br>";
+              }
+
+              ?>
+
+            </td>
+          </tr>
+
+        <?php
+          } // foreach $courses_per_term
+        ?>
+    </table>
   </div>
 </div>
 
-<hr class="dotted">
+<br>
 
 <div class="row">
   <div class="<?php echo (is_student() ? 'span12': 'span9') ?>">
     <h3>Courses taken by department</h3>
-    <p>
-      
-    <?php
+     <table class="table table-hover">
+      <?php
 
-    $courses = get_courses_by_department(); 
-    foreach( $courses as $course ) {
-      echo $course;
-    }
+        $courses_by_department = get_courses_by_department( $_SESSION['viewing_psid'], $_SESSION['all_courses'] );
 
-    ?>
-    </p>
+        ksort( $courses_by_department );
+        foreach( $courses_by_department as $term => $courses ) {
+          ?>
+
+          <tr>
+            <td>
+              <?php echo $term ?>
+            </td>
+            <td>
+              <?php
+              
+              foreach( $courses as $course ) {
+                echo $course->get_with_grade();
+                echo "<br>";
+              }
+
+              ?>
+
+            </td>
+          <?php
+        }
+      ?>
+    </table>
   </div>
 </div>
 
-<hr class="dotted">  
+<br>  
 
 <div class="row">
   <div class="<?php echo (is_student() ? 'span12': 'span9') ?>">
@@ -54,12 +80,7 @@
 
     <?php
 
-        if ( is_student() )
-          $viewing_psid = $_SESSION['psid'];
-        else
-          $viewing_psid = $_SESSION['student']['psid'];
-
-        $reqs = get_requirements( $viewing_psid );
+        $reqs = get_requirements( $_SESSION['viewing_psid'] );
 
           ksort( $reqs );
           foreach( $reqs as $req ) {
@@ -91,7 +112,7 @@
             
               <?php
                 if ( $req->satisfied ) {
-                  $req->print_satisfying_course( $viewing_psid, $_SESSION['user_courses'] );
+                  $req->print_satisfying_course( $_SESSION['viewing_psid'], $_SESSION['user_courses'] );
                 } else {
                   echo "<span class='muted'>Courses that satisfy this requirement: ";
                   $req->print_requirements();
