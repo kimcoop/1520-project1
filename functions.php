@@ -287,7 +287,7 @@ function requirements_met( $psid, $course_options ) {
     $log_timestamp = $_SESSION['student']['logging_session_timestamp'];
     $filename = sprintf( "files/notes/%s.txt", $log_timestamp );
 
-    if ( file_put_contents( $filename, $notes, FILE_APPEND | LOCK_EX ) ) {
+    if ( file_put_contents( NOTES_FILE, "\n" . $log_timestamp, FILE_APPEND | LOCK_EX ) && file_put_contents( $filename, $notes, FILE_APPEND | LOCK_EX ) ) {
       display_notice( 'Advising session notes added.', 'success' );
     } else {
       display_notice( 'Error logging advising notes.', 'error' );
@@ -298,7 +298,7 @@ function requirements_met( $psid, $course_options ) {
   function get_advising_notes( $psid ) {
 
     $advising_notes = array();
-    $file_handle = fopen( NOTES_FILE , "r" );
+    $file_handle = fopen( NOTES_FILE, "r" );
 
     while ( !feof($file_handle) ) {
       $line = fgets( $file_handle );
