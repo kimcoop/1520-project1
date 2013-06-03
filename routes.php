@@ -32,7 +32,7 @@
   }
 
   if ( isset($_POST['log_advising_session_form_submit']) ) {
-    log_advising_session();
+    log_advising_session( $_SESSION['viewing_psid'] );
     header('Location: advisor.php') ;
     exit();
   }
@@ -67,6 +67,14 @@
     }
 
     exit();
+
+  } else if ( $_GET['action'] == 'new_search' ) {
+
+    $name = $_SESSION['student']['full_name'];
+    unset( $_SESSION['student'] );
+    unset( $_SESSION['viewing_psid'] );
+    display_notice( "Advising session for $name ended.", 'success' );
+    header( 'Location: advisor.php' );
 
   } else {
 

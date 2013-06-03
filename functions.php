@@ -252,6 +252,7 @@ function requirements_met( $psid, $course_options ) {
           $_SESSION['student']['access_level'] = $pieces[6];
 
           $_SESSION['viewing_psid'] = $_SESSION['student']['psid'];
+          $_SESSION['user_courses'] = get_courses_for_user( $_SESSION['viewing_psid'], $_SESSION['all_courses'] );
 
           break;
         }
@@ -265,11 +266,19 @@ function requirements_met( $psid, $course_options ) {
 
   }
 
-  function log_advising_session() {
-    // Log advising session – this option will add a timestamp entry to a file indicating the date and time of this student's current advising session. See below for file format details.
-    // TODO: log session
-    $_SESSION['student']['logging_session'] = true;
-    display_notice( 'Advising session logged.', 'success' );
+  function log_advising_session( $psid ) {
+    
+    $date = new DateTime();
+    $session_timestamp = $date->format('Y-m-d-H-i-s');
+    $log = sprintf( "\n%d:%s", $psid, $session_timestamp );
+
+    if ( file_put_contents( SESSIONS_FILE, $log, FILE_APPEND | LOCK_EX ) ) {
+      $_SESSION['student']['logging_session'] = true;
+      display_notice( 'Advising session logged.', 'success' );
+    } else {
+      display_notice( 'Error logging advising session.', 'error' );
+    }
+
   }
 
   function add_notes_to_session( $notes ) {

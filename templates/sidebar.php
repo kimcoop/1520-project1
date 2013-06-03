@@ -27,7 +27,7 @@
       <p class="text-success">
         Logging current advising session
       </p>
-      <a href="advisor.php" class="btn btn-block btn-primary">End advising session</a>
+      <a href="routes.php?action=new_search" class="btn btn-block btn-primary">Search for another student</a>
 
   <?php
     }
