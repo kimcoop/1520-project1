@@ -2,12 +2,15 @@
 
 require_once('models/course.php');
 require_once('models/requirement.php');
+require_once('models/advising_session.php');
 
 define( "STUDENT_ACCESS_LEVEL", 0 );
 define( "ADVISOR_ACCESS_LEVEL", 1 );
 define( "USERS_FILE", 'files/users.txt' );
 define( "COURSES_FILE", 'files/courses.txt' );
 define( "REQS_FILE", 'files/reqs.txt' );
+define( "SESSIONS_FILE", 'files/sessions.txt' );
+define( "NOTES_FILE", 'files/notes.txt' );
 
 function signin( $user_id, $password ) {
   $valid = false;
@@ -271,8 +274,23 @@ function requirements_met( $psid, $course_options ) {
   }
 
   function get_advising_sessions( $psid ) {
-    // Show advising sessions – this option will show a list of previous advising sessions for this student, ordered from most recent to least recent.
-    return array("session1", "session2", "session3", "session4");
+    
+    $advising_sessions = array();
+    $file_handle = fopen( SESSIONS_FILE , "r" );
+
+    while ( !feof($file_handle) ) {
+      $line = fgets( $file_handle );
+      
+      $pieces = explode( ":", $line );
+      if ( $pieces[0] == $psid ) {
+        $advising_session = array( "timestamp" => $pieces[1] );
+        $advising_sessions[] = $advising_session;
+      }
+      
+    }
+
+    fclose( $file_handle );
+    return $advising_sessions;
   }
 
   function get_session_comments( $session_id ) {

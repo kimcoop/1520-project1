@@ -1,6 +1,6 @@
 <?php
 
-  class Requirement {
+  class AdvisingSession {
     public $title, $reqs, $satisfied;
 
     function __construct( $line ) {

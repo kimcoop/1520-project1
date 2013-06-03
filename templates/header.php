@@ -3,6 +3,7 @@
 require_once('functions.php'); 
 require_once('models/course.php');
 require_once('models/requirement.php');
+require_once('models/advising_session.php');
 
 ?>
 
