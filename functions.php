@@ -270,10 +270,11 @@ function requirements_met( $psid, $course_options ) {
     
     $date = new DateTime();
     $session_timestamp = $date->format('Y-m-d-H-i-s');
-    $log = sprintf( "\n%d:%s", $psid, $session_timestamp );
+    $log_timestamp = sprintf( "%d:%s", $psid, $session_timestamp );
 
-    if ( file_put_contents( SESSIONS_FILE, $log, FILE_APPEND | LOCK_EX ) ) {
+    if ( file_put_contents( SESSIONS_FILE, "\n" . $log_timestamp, FILE_APPEND | LOCK_EX ) ) {
       $_SESSION['student']['logging_session'] = true;
+      $_SESSION['student']['logging_session_timestamp'] = $log_timestamp;
       display_notice( 'Advising session logged.', 'success' );
     } else {
       display_notice( 'Error logging advising session.', 'error' );
@@ -282,9 +283,15 @@ function requirements_met( $psid, $course_options ) {
   }
 
   function add_notes_to_session( $notes ) {
-    // TODO: add notes to session
-    // $_SESSION['student']['logging_session'] = true;
-    display_notice( 'Advising session notes added.', 'success' );
+
+    $log_timestamp = $_SESSION['student']['logging_session_timestamp'];
+    $filename = sprintf( "files/notes/%s.txt", $log_timestamp );
+
+    if ( file_put_contents( $filename, $notes, FILE_APPEND | LOCK_EX ) ) {
+      display_notice( 'Advising session notes added.', 'success' );
+    } else {
+      display_notice( 'Error logging advising notes.', 'error' );
+    }
   }
 
 
