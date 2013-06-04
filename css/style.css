@@ -173,6 +173,12 @@ aside {
   margin-left: 40px;
 }
 
+@media (max-width: 767px) {
+  aside {
+    margin-left: 0;
+  }
+}
+
 aside .title {
   margin-top: 0;
   margin-bottom: 20px;
@@ -216,4 +222,24 @@ a.btn {
 
 .btn-primary:hover {
   background-color: #007d9a;
+}
+
+.btn-primary.disabled, .btn-primary[disabled] {
+  color: #555;
+  background-color: #C7D9DE;
+}
+
+
+@media (max-width: 767px) {
+
+  body {
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+
+  .main.container {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  
 }

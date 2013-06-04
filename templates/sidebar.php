@@ -36,9 +36,16 @@
 </aside>
 <aside class="well">
   <h4 class="title">Session Notes</h4>
+  <?php 
+
+    if ( !is_logging_session() ) {
+      echo "<div class='text-info'>Please log your session (above) to add notes.</div><br>";
+    }
+
+  ?> 
   <form action="routes.php" method="post" name="advising_notes_form">
-    <textarea class="input-block-level" name="note_content" rows="11" placeholder="Notes"></textarea>
-    <button class="btn btn-block btn-primary" type="submit" name="advising_notes_form_submit">Add notes to current session</button>
+    <textarea <?php if ( !is_logging_session() ) echo 'disabled' ?> class="input-block-level" name="note_content" rows="11" placeholder="Notes"></textarea>
+    <button <?php if ( !is_logging_session() ) echo 'disabled' ?> class="btn btn-block btn-primary" type="submit" name="advising_notes_form_submit">Add notes to current session</button>
   </form>
 </aside>
 
