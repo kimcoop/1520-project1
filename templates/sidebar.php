@@ -27,11 +27,11 @@
       <p class="text-success">
         Logging current advising session
       </p>
-      <a href="routes.php?action=new_search" class="btn btn-block btn-primary">View another student record</a>
 
   <?php
     }
   ?>
+  <a href="routes.php?action=new_search" class="btn btn-block btn-primary">View another student record</a>
 
 </aside>
 <aside class="well">
