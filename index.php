@@ -5,7 +5,7 @@
 
     <?php 
 
-      if( $_GET['forgot_password'] ) {
+      if( should_show_notice() ) {
 
     ?>
 
@@ -18,6 +18,7 @@
 
     <?php
 
+      unset( $_SESSION['notice'] );
       } else {
       
     ?>

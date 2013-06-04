@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="<?php echo (is_student() ? 'span12': 'span9') ?>">
+  <div class="<?php echo (is_student() ? 'span12': 'span9'); ?>">
     <h3>Courses taken by term</h3>
     <table class="table table-hover">
       <?php
@@ -12,7 +12,7 @@
 
           <tr>
             <td>
-              <?php echo $term ?>
+              <?php echo $term; ?>
             </td>
             <td>
 
@@ -38,7 +38,7 @@
 <br>
 
 <div class="row">
-  <div class="<?php echo (is_student() ? 'span12': 'span9') ?>">
+  <div class="<?php echo (is_student() ? 'span12': 'span9'); ?>">
     <h3>Courses taken by department</h3>
      <table class="table table-hover">
       <?php
@@ -51,7 +51,7 @@
 
           <tr>
             <td>
-              <?php echo $department ?>
+              <?php echo $department; ?>
             </td>
             <td>
               <?php
@@ -65,7 +65,7 @@
 
             </td>
           <?php
-        }
+        } // foreach $courses_by_department
       ?>
     </table>
   </div>
@@ -74,7 +74,7 @@
 <br>  
 
 <div class="row">
-  <div class="<?php echo (is_student() ? 'span12': 'span9') ?>">
+  <div class="<?php echo (is_student() ? 'span12': 'span9'); ?>">
     <h3>CS graduation requirements</h3>
     <table class="table table-hover">
 
@@ -87,7 +87,7 @@
           ?>
             <tr>  
               <td>
-                <?php echo $req->title ?>
+                <?php echo $req->title; ?>
               </td>
 
               <td>
@@ -126,7 +126,7 @@
             
             <?php
             
-            } // foreach
+            } // foreach $reqs
 
           ?>
     </table>

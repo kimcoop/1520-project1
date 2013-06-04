@@ -2,7 +2,8 @@
 
 require_once('models/course.php');
 require_once('models/requirement.php');
-require_once('models/advising_session.php');
+
+date_default_timezone_set( 'America/New_York' );
 
 define( "STUDENT_ACCESS_LEVEL", 0 );
 define( "ADVISOR_ACCESS_LEVEL", 1 );
@@ -187,7 +188,7 @@ function get_courses_by_department( $psid, $courses ) {
 }
 
 function get_requirements( $psid ) {
-  $requirements = [];
+  $requirements = array();
   $graduation_reqs = populate_reqs();
 
   foreach( $graduation_reqs as $requirement ) {
@@ -214,9 +215,9 @@ function get_user_course_record( $psid, $department, $number ) {
 function requirements_met( $psid, $course_options ) {
   
   foreach( $course_options as $req ) {
-    
-    $req_course_department = explode( ",", $req )[0];
-    $req_course_number = (int) explode( ",", $req )[1];
+    $pieces = explode( ",", $req );
+    $req_course_department = $pieces[0];
+    $req_course_number = (int) $pieces[1];
 
     $user_course = get_user_course_record( $psid, $req_course_department, $req_course_number);
     if ( isset($user_course) ) {
@@ -330,6 +331,8 @@ function requirements_met( $psid, $course_options ) {
   }
 
   function should_show_session_notes( $session_timestamp ) {
+    if ( isset( $_SESSION['should_show_notes'] ) && is_null( $_SESSION['should_show_notes'][ $session_timestamp ] ) )
+      return false;
     return $_SESSION['should_show_notes'][ $session_timestamp ];
   }
 

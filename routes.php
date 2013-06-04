@@ -15,7 +15,7 @@
 
       header( 'Location: index.php' );
 
-    } else if ( signin( $_POST['user_id'], $_POST['password'] ) ) {
+    } elseif ( signin( $_POST['user_id'], $_POST['password'] ) ) {
 
       if ( is_student() )
         header('Location: student.php');
@@ -55,7 +55,7 @@
     header('Location: index.php') ;
     exit();
 
-  } else if ( isset($_GET['student_search_term']) ) {
+  } elseif ( isset($_GET['student_search_term']) ) {
     if ( find_user_by_psid_or_name( $_GET['student_search_term'] )) {
       $name = $_SESSION['student']['full_name'];
       display_notice( "Viewing report for $name.", 'success' );
@@ -69,27 +69,18 @@
 
     exit();
 
-  } else if ( $_GET['action'] == 'new_search' ) {
+  } elseif ( $_GET['action'] == 'new_search' ) {
 
     clear_search();
     display_notice( "Advising session for $name ended.", 'success' );
     header( 'Location: advisor.php' );
 
   } else {
+    $str = 'Route '. $_GET['action'] .' not recognized.';
+    display_notice( $str, 'error' );
+    header('Location: index.php') ;
+    exit();
+
+  }
 
 ?>
-
-<?php include('templates/header.php') ?>
-
-
-  <div class="alert alert-error">
-
-    <strong>Error</strong>
-
-    Route '<?php echo $_GET['action'] ?>' not recognized.
-
-  </div>
-
-<?php include('templates/footer.php') ?>
-
-<? } ?>
