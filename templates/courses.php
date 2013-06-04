@@ -6,30 +6,35 @@
 
         $courses_per_term = get_courses_by_term( $_SESSION['viewing_psid'], $_SESSION['all_courses'] );
 
-        ksort( $courses_per_term );
-        foreach( $courses_per_term as $term => $courses ) {
-        ?>
+        if ( !empty($courses_per_term) ) {
 
-          <tr>
-            <td>
-              <?php echo $term; ?>
-            </td>
-            <td>
+          ksort( $courses_per_term );
+          foreach( $courses_per_term as $term => $courses ) {
+          ?>
 
-              <?php
-              
-              foreach( $courses as $course ) {
-                $course->print_with_grade();
-                echo "<br>";
-              }
+            <tr>
+              <td>
+                <?php echo $term; ?>
+              </td>
+              <td>
 
-              ?>
+                <?php
+                
+                foreach( $courses as $course ) {
+                  $course->print_with_grade();
+                  echo "<br>";
+                }
 
-            </td>
-          </tr>
+                ?>
 
-        <?php
-          } // foreach $courses_per_term
+              </td>
+            </tr>
+
+          <?php
+            } // foreach $courses_per_term
+          } else {
+            echo "No courses taken.";
+          }
         ?>
     </table>
   </div>
@@ -45,27 +50,33 @@
 
         $courses_by_department = get_courses_by_department( $_SESSION['viewing_psid'], $_SESSION['all_courses'] );
 
-        ksort( $courses_by_department );
-        foreach( $courses_by_department as $department => $courses ) {
-          ?>
+        if ( !empty($courses_by_department) ) {
 
-          <tr>
-            <td>
-              <?php echo $department; ?>
-            </td>
-            <td>
-              <?php
-              
-              foreach( $courses as $course ) {
-                echo $course->get_with_grade();
-                echo "<br>";
-              }
 
-              ?>
+          ksort( $courses_by_department );
+          foreach( $courses_by_department as $department => $courses ) {
+            ?>
 
-            </td>
-          <?php
-        } // foreach $courses_by_department
+            <tr>
+              <td>
+                <?php echo $department; ?>
+              </td>
+              <td>
+                <?php
+                
+                foreach( $courses as $course ) {
+                  echo $course->get_with_grade();
+                  echo "<br>";
+                }
+
+                ?>
+
+              </td>
+            <?php
+          } // foreach $courses_by_department
+        } else {
+          echo "No courses taken.";
+        }
       ?>
     </table>
   </div>

@@ -241,5 +241,15 @@ a.btn {
     padding-left: 20px;
     padding-right: 20px;
   }
+
+  header, footer {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
   
+}
+
+.table td:first-child {
+  width: 15%;
+  text-align: center;
 }

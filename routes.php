@@ -56,18 +56,19 @@
     exit();
 
   } elseif ( isset($_GET['student_search_term']) ) {
+
     if ( find_user_by_psid_or_name( $_GET['student_search_term'] )) {
       $name = $_SESSION['student']['full_name'];
       display_notice( "Viewing report for $name.", 'success' );
       $user_id = $_SESSION['student']['user_id'];
       header( "Location: advisor.php?student_id=$user_id" );
+      exit();
     } else {
       $search = $_GET['student_search_term'];
       display_notice( "User '$search' not found.", 'error' );
       header( 'Location: advisor.php' );
+      exit();
     }
-
-    exit();
 
   } elseif ( $_GET['action'] == 'new_search' ) {
 

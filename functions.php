@@ -330,10 +330,11 @@ function requirements_met( $psid, $course_options ) {
 
   }
 
-  function should_show_session_notes( $session_timestamp ) {
-    if ( isset( $_SESSION['should_show_notes'] ) && is_null( $_SESSION['should_show_notes'][ $session_timestamp ] ) )
+  function should_show_notes( $session_timestamp ) {
+    if ( !isset( $_SESSION['should_show_notes'] ) || !isset( $_SESSION['should_show_notes'][ $session_timestamp ] ) )
       return false;
-    return $_SESSION['should_show_notes'][ $session_timestamp ];
+    else 
+      return $_SESSION['should_show_notes'][ $session_timestamp ];
   }
 
   function set_should_show_notes( $psid, $session_timestamp, $should_show ) {
