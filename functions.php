@@ -51,6 +51,13 @@ function signin( $user_id, $password ) {
   return $valid;
 }
 
+function clear_search() {
+  $name = $_SESSION['student']['full_name'];
+  unset( $_SESSION['student'] );
+  unset( $_SESSION['viewing_psid'] );
+  unset( $_SESSION['should_show_notes'] );
+}
+
 function is_logged_in() {
   return isset( $_SESSION['user_id'] );
 }
@@ -267,9 +274,8 @@ function requirements_met( $psid, $course_options ) {
   }
 
   function log_advising_session( $psid ) {
-    
-    $date = new DateTime();
-    $session_timestamp = $date->format('Y-m-d-H-i-s');
+
+    $session_timestamp = get_formatted_timestamp();
     $log_timestamp = sprintf( "%d:%s", $psid, $session_timestamp );
 
     if ( file_put_contents( SESSIONS_FILE, "\n" . $log_timestamp, FILE_APPEND | LOCK_EX ) ) {
@@ -282,12 +288,18 @@ function requirements_met( $psid, $course_options ) {
 
   }
 
-  function add_notes_to_session( $notes ) {
+  function get_formatted_timestamp() {
+    $date = new DateTime();
+    return $date->format('Y-m-d-H-i-s');
+  }
 
-    $log_timestamp = $_SESSION['student']['logging_session_timestamp'];
-    $filename = sprintf( "files/notes/%s.txt", $log_timestamp );
+  function add_notes( $psid, $notes ) {
 
-    if ( file_put_contents( NOTES_FILE, "\n" . $log_timestamp, FILE_APPEND | LOCK_EX ) && file_put_contents( $filename, $notes, FILE_APPEND | LOCK_EX ) ) {
+    $timestamp = get_formatted_timestamp();
+    $note_timestamp = sprintf( "%d:%s", $psid, $timestamp );
+    $filename = sprintf( "files/notes/%s.txt", $note_timestamp );
+
+    if ( file_put_contents( NOTES_FILE, "\n" . $note_timestamp , FILE_APPEND | LOCK_EX ) && file_put_contents( $filename, $notes, FILE_APPEND | LOCK_EX ) ) {
       display_notice( 'Advising session notes added.', 'success' );
     } else {
       display_notice( 'Error logging advising notes.', 'error' );
@@ -305,7 +317,8 @@ function requirements_met( $psid, $course_options ) {
       
       $pieces = explode( ":", $line );
       if ( $pieces[0] == $psid ) {
-        $advising_note = array( "timestamp" => make_date( $pieces[1]) );
+        $timestamp = clean( $pieces[1] );
+        $advising_note = array( "timestamp" => $timestamp, "formatted_timestamp" => make_date( $timestamp) );
         $advising_notes[] = $advising_note;
       }
 
@@ -317,20 +330,17 @@ function requirements_met( $psid, $course_options ) {
   }
 
   function should_show_session_notes( $session_timestamp ) {
-    $should_show = isset( $_SESSION['notes'][ $session_timestamp ]);
-    return $should_show;
+    return $_SESSION['should_show_notes'][ $session_timestamp ];
   }
 
-  function show_session_notes( $session_timestamp ) {
+  function set_should_show_notes( $psid, $session_timestamp, $should_show ) {
+    $_SESSION['should_show_notes'][ $session_timestamp ] = $should_show;
+  }
+
+  function get_notes( $psid, $timestamp ) {
     
-    return $_SESSION['notes'][ $session_timestamp ];
-  }
-
-  function get_advising_session_notes( $psid, $session_timestamp ) {
-    $filename = sprintf( "files/notes/%d:%s.txt", $psid, $session_timestamp );
+    $filename = sprintf( "files/notes/%d:%s.txt", $psid, $timestamp );
     $notes = file_get_contents( $filename );
-
-    $_SESSION['notes'][ $session_timestamp ] = $notes;
 
     return $notes;
 
@@ -350,6 +360,10 @@ function requirements_met( $psid, $course_options ) {
     return date( $format, mktime( $hour, $minute, $second, $month, $day, $year ));
   }
 
+  function clean( $str ) {
+    return preg_replace( '/[^(\x20-\x7F)]*/','', $str );
+  }
+
   function get_advising_sessions( $psid ) {
     
     $advising_sessions = array();
@@ -360,7 +374,8 @@ function requirements_met( $psid, $course_options ) {
       
       $pieces = explode( ":", $line );
       if ( $pieces[0] == $psid ) {
-        $advising_session = array( "timestamp" => make_date( $pieces[1]) );
+        $timestamp = clean( $pieces[1] );
+        $advising_session = array( "timestamp" => $timestamp, "formatted_timestamp" => make_date( $timestamp) );
         $advising_sessions[] = $advising_session;
       }
 

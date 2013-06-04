@@ -7,10 +7,10 @@
 
   ?>
 <aside class="well">
-  <h4 class="title">Status</h4>
+  <h4 class="title">Current Report</h4>
 
     <p>
-      Currently viewing report for: <?php echo $student_summary ?>
+      <?php echo $student_summary ?>
     </p>
 
       <?php
@@ -27,7 +27,7 @@
       <p class="text-success">
         Logging current advising session
       </p>
-      <a href="routes.php?action=new_search" class="btn btn-block btn-primary">Search for another student</a>
+      <a href="routes.php?action=new_search" class="btn btn-block btn-primary">View another student record</a>
 
   <?php
     }
@@ -37,7 +37,7 @@
 <aside class="well">
   <h4 class="title">Session Notes</h4>
   <form action="routes.php" method="post" name="advising_notes_form">
-    <textarea class="input-block-level" name="note_content" rows="6" placeholder="Notes"></textarea>
+    <textarea class="input-block-level" name="note_content" rows="11" placeholder="Notes"></textarea>
     <button class="btn btn-block btn-primary" type="submit" name="advising_notes_form_submit">Add notes to current session</button>
   </form>
 </aside>

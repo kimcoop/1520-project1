@@ -18,7 +18,7 @@
           <td>
 
           <?php
-            echo $note['timestamp'];
+            echo $note['formatted_timestamp'];
           ?>
 
           </td>
@@ -27,14 +27,13 @@
             <?php
 
               if ( should_show_session_notes( $note['timestamp'] ) ) {
-                echo show_session_notes( $note['timestamp'] );
+                echo get_notes( $_SESSION['viewing_psid'], $note['timestamp'] );
               } else {
-
 
             ?>
 
             <form class="pull-right" action="routes.php" method="post" name="display_notes_form">
-              <button value="<?php echo $note['timestamp'] ?>" class="btn" type="submit" name="display_notes_form_submit">View comments &raquo;</button>
+              <button value="<?php echo $note['timestamp']; ?>" class="btn" type="submit" name="display_notes_form_submit">View comments &raquo;</button>
             </form>
 
             <?php

@@ -15,7 +15,7 @@
           <td>
 
           <?php
-            echo $session['timestamp'];
+            echo $session['formatted_timestamp'];
           ?>
 
           </td>

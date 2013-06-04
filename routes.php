@@ -38,13 +38,13 @@
   }
 
   if ( isset($_POST['advising_notes_form_submit']) ) {
-    add_notes_to_session( $_POST['note_content'] );
-    header('Location: advisor.php') ;
+    add_notes( $_SESSION['viewing_psid'], $_POST['note_content'] );
+    header('Location: advisor.php?tab=advising_notes') ;
     exit();
   }
 
   if ( isset($_POST['display_notes_form_submit']) ) {
-    get_advising_session_notes( $_SESSION['viewing_psid'], $_POST['display_notes_form_submit'] );
+    set_should_show_notes( $_SESSION['viewing_psid'], $_POST['display_notes_form_submit'], true );
     header('Location: advisor.php?tab=advising_notes');
     exit();
   }
@@ -57,7 +57,8 @@
 
   } else if ( isset($_GET['student_search_term']) ) {
     if ( find_user_by_psid_or_name( $_GET['student_search_term'] )) {
-      display_notice( 'User found.', 'success' );
+      $name = $_SESSION['student']['full_name'];
+      display_notice( "Viewing report for $name.", 'success' );
       $user_id = $_SESSION['student']['user_id'];
       header( "Location: advisor.php?student_id=$user_id" );
     } else {
@@ -70,9 +71,7 @@
 
   } else if ( $_GET['action'] == 'new_search' ) {
 
-    $name = $_SESSION['student']['full_name'];
-    unset( $_SESSION['student'] );
-    unset( $_SESSION['viewing_psid'] );
+    clear_search();
     display_notice( "Advising session for $name ended.", 'success' );
     header( 'Location: advisor.php' );
 
