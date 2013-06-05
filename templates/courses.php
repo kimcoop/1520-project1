@@ -104,7 +104,7 @@
               <td>
                 <?php
                 
-                  if ( $req->satisfied ) {
+                  if ( $req->is_satisfied( $_SESSION['viewing_psid'], $req ) ) {
 
                 ?>
 
@@ -122,7 +122,7 @@
               <td>
             
               <?php
-                if ( $req->satisfied ) {
+                if ( $req->is_satisfied( $_SESSION['viewing_psid'], $req ) ) {
                   $req->print_satisfying_course( $_SESSION['viewing_psid'], $_SESSION['user_courses'] );
                 } else {
                   echo "<span class='muted'>Courses that satisfy this requirement: ";

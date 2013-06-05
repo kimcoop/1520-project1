@@ -188,41 +188,42 @@ function get_courses_by_department( $psid, $courses ) {
 }
 
 function get_requirements( $psid ) {
-  $requirements = array();
   $graduation_reqs = populate_reqs();
-
-  foreach( $graduation_reqs as $requirement ) {
-    $requirement->satisfied = requirements_met( $psid, $requirement->reqs );
-    $requirements[] = $requirement;
-  }
-  
-  return $requirements;
-
+  return $graduation_reqs;
 }
+
 
 function get_user_course_record( $psid, $department, $number ) {
 
   foreach( $_SESSION['user_courses'] as $user_course ) {
+
+    // ensure course grade is passing, course matches req department and number
     if ( $user_course->is_passing_grade() && $user_course->department == $department && $user_course->number == $number ) {
       return $user_course;
     }
+
   }
 
   return NULL;
 
 }
 
-function requirements_met( $psid, $course_options ) {
+function requirements_met( $psid, $requirement ) {
   
-  foreach( $course_options as $req ) {
+  $course_options = $requirement->course_options;
+
+  foreach( $course_options as $index => $req ) {
+
     $pieces = explode( ",", $req );
     $req_course_department = $pieces[0];
     $req_course_number = (int) $pieces[1];
 
     $user_course = get_user_course_record( $psid, $req_course_department, $req_course_number);
     if ( isset($user_course) ) {
+      $elective_count = 0;
       return true;
     }
+
 
   }
   return false;
