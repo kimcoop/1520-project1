@@ -421,11 +421,11 @@ function requirements_met( $psid, $requirement ) {
 
       $email = $details[ 'email' ];
       $password = $details[ 'password' ];
-      $format = "Your password is %s (for user ID %s)";
+      $format = "Your password is %s. Thanks! -- The Advisor Cloud Team";
 
       $to      = $email;
       $subject = MAILER_SUBJECT;
-      $message = sprintf( $format, $password, $user_id );
+      $message = sprintf( $format, $password );
       $headers = 'From: ' .MAILER_SENDER . '' . "\r\n" .
           'Reply-To: ' .MAILER_SENDER . '' . "\r\n" .
           'X-Mailer: PHP/' . phpversion();
