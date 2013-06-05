@@ -248,3 +248,7 @@ a.btn {
   width: 15%;
   text-align: center;
 }
+
+.info p {
+  font-size: 1.3em;
+}

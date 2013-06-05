@@ -15,16 +15,8 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <!-- Le styles -->
-    
     <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
-
     <link href="css/style.css" rel="stylesheet">
-
-    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-      <script src="js/html5shiv.js"></script>
-    <![endif]-->
     
   </head>
 
