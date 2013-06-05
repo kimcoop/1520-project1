@@ -421,7 +421,7 @@ function requirements_met( $psid, $requirement ) {
 
       $email = $details[ 'email' ];
       $password = $details[ 'password' ];
-      $format = "Your password is $s (for user ID %s)";
+      $format = "Your password is %s (for user ID %s)";
 
       $to      = $email;
       $subject = MAILER_SUBJECT;

@@ -3,28 +3,7 @@
 
   <form class="form-signin" action="routes.php" name="signin_form" method="post">
 
-    <?php 
-
-      if( should_show_notice() ) {
-
-    ?>
-
-    <div class="alert alert-success">
-      <strong>Don't worry!</strong>&nbsp;
-      Your password has been emailed to you.
-    </div>
-
-    <a href="index.php" class="btn btn-block btn-large">Ok</a>
-
-    <?php
-
-      unset( $_SESSION['notice'] );
-      } else {
-      
-    ?>
-
-
-    <h2 class="text-center form-signin-heading">Please Sign In</h2>
+    <h2 class="text-center form-signin-heading">Welcome to Advisor Cloud</h2>
 
     <?php
       if ( should_show_notice() ) {
@@ -51,10 +30,6 @@
         <input type="checkbox" name="forgot_password"> Forgot password
       </label>
     </span>
-
-
-
-    <?php } ?>
     
   </form>
 
