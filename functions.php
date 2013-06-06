@@ -35,6 +35,9 @@ function signin( $user_id, $password ) {
         $_SESSION['full_name'] = "$pieces[5] $pieces[4]";
         $_SESSION['access_level'] = $pieces[6];
 
+        $expire = time() + 60 * 60 * 24 * 30;
+        setcookie( "user_id", $user_id, $expire ); // set cookie to what user passed in
+
         // so we can use one variable for both roles. overwrite if/when advisor looks up student
         $_SESSION['viewing_psid'] = $_SESSION['psid'];
         break;

@@ -2,7 +2,6 @@
 
 <?php
 
-  session_start(); // attempt to start session
   if ( is_logged_in() && is_student() ) {
 
 ?>

@@ -7,8 +7,32 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+    <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
+
+    <style>
+    .container-narrow {
+      margin: 0 auto;
+      max-width: 700px;
+    }
+
+    .table-info {
+      width: 60%;
+    }
+
+     .table-info tr td:first-child {
+        min-width: 45%;
+        width: 45%;
+        text-align: left;
+     }
+
+     .table-info tr td {
+        vertical-align: middle;
+        border: none;
+     }
+
+    
+    </style>
     
   </head>
 
@@ -17,73 +41,127 @@
   <br>
   <br>
 
-  <div class="container main info">
+  <div class="container-narrow container-info">
 
-    <div class="row">
-      <div class="span9">
-        <h1>Assignment 1 Submission Sheet</h1>
+    <div class="row-fluid">
+      <div class="span12 text-center">
+        <h2>
+          Assignment Information Sheet
+        </h2>
+        <h3 class="muted">CS 1520 Summer 2013</h3>
+        <a href="http://cs1520.cs.pitt.edu/~kac162/assig1/index.php" class="btn btn-large">View Assignment</a>
       </div>
-      <div class="span3 text-right">
-        <a href="http://cs1520.cs.pitt.edu/~kac162/assig1/index.php" class="btn btn-large">View Assignment 1</a>
-      </div>
+      
+      
     </div>
 
 
     <hr class="dotted">
 
-    <div class="row">
+    <h3>Basic Details</h3>
+    <div class="row-fluid">
       <div class="span12">
-        <h2>Files</h2>
+        <table class="table table-info">
+          <p>
+            <strong>Name</strong>
+            Name
+          </p>
+
+          <p>
+            <strong>Assignment Number</strong>
+            AssignmentNumber
+          </p>
+
+          <p>
+            <strong>Recitation Date & Time</strong>
+            RecInfo
+          </p>
+
+          <p>
+            <strong>TA</strong>
+            TA
+          </p>
+
+          <p>
+            <strong>Program Due Date</strong>
+            ProgramDueDate
+          </p>
+
+          <p>
+            <strong>Handed In Date</strong>
+            HandedInDate
+          </p>
+
+          <p>
+            <strong>URL of Program</strong>
+            URLofProgram
+          </p>
+
+          <p>
+            <strong>AFS Path of Source Code</strong>
+            AFSPath
+          </p>
+          
+        
+      </div>
+    </div>
+
+
+    <br>
+
+    <h3>Included Files</h3>
+    <div class="row-fluid">
+      <div class="span6">
+        <strong>Source code files</strong>
+        <ul>
+          <li>test</li>
+          <li>test</li>
+          <li>test</li>
+          <li>test</li>
+        </ul>
+      </div>
+      <div class="span6">
+        <strong>Other files</strong>
+        <ul>
+          <li>test</li>
+          <li>test</li>
+          <li>test</li>
+          <li>test</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="row-fluid">
+      <div class="span12">
+        <h3>Execution Details</h3>
+        <p>
+          <strong>Does the program run correctly?</strong>
+          Yes.
+        </p>
+      </div>
+    </div>
+
+    <div class="row-fluid">
+      <div class="span12">
+        <h3>Comments</h3>
         <p>
           Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium.
         </p>
       </div>
     </div>
 
-
-    <div class="row">
-      <div class="span12">
-        <h2>Execution Details</h2>
-        <p>
-          Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium.
-        </p>    <div class="row">
-      </div>
-    </div>
-    <div class="span12">
-        <h2>Extra Credit</h2>
-        <p>
-          Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium.
-        </p>
-      </div>
-    </div>
-
     <hr class="dotted">
 
-    <a href="http://cs1520.cs.pitt.edu/~kac162/assig1/index.php" class="btn btn-large">View Assignment 1</a>
+    <div class="row-fluid">
+      <div class="span12 text-center">
+        <a href="http://cs1520.cs.pitt.edu/~kac162/assig1/index.php" class="btn btn-large">View Assignment</a>
+      </div>
+    </div>
 
-    <div class="push"></div>
+    <br>
+    <br>
 
-  </div> <!-- .container.main -->
-
-  <footer>
-    
-    <div class="container">
-
-      <p class="pull-right"><a href="#">Back to top</a></p>
-
-      <p class="text-center">
-        <?php
-          $format = '%1$s %2$s %3$s. All Rights Reserved.';
-          echo sprintf( $format, '&copy;', date('Y'), 'AdvisorCloud' );
-        ?>
-      </p>
-
-
-  </footer>
-
-  <script src="http://code.jquery.com/jquery.js"></script>
-  <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
-  <!-- <script src="bootstrap.min.js"></script> -->
+  </div> <!-- .container-narrow -->
 
   </body>
 </html>

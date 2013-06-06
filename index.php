@@ -18,9 +18,26 @@
       unset( $_SESSION['notice'] );
       }
     ?>
-    
+
+    <?php
+      if (isset($_COOKIE['user_id'])):
+    ?>
+
+    <input type="text" class="input-block-level" placeholder="User ID" name="user_id" value="<?php echo $_COOKIE['user_id']; ?>" />
+    <input autofocus type="password" class="input-block-level" placeholder="Password" name="password" />
+
+    <?php
+    else:
+    ?>
+
     <input autofocus type="text" class="input-block-level" placeholder="User ID" name="user_id" />
     <input type="password" class="input-block-level" placeholder="Password" name="password" />
+
+    <?php
+    endif;
+    ?>
+
+    
     <button type="submit" class="btn btn-block btn-large btn-primary" name="signin_form_submit">Sign in</button>
 
     <br>
