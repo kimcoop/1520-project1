@@ -87,6 +87,7 @@ function should_show_notice() {
 }
 
 function get_root_url() {
+  // used in the nav bar, to correctly link the brand href
   if ( is_student() ) 
     return 'student.php'; 
   else
@@ -102,11 +103,13 @@ function get_root_url() {
   */
 
   function display_notice( $message, $type ) {
+    // used to display a message onscreen if there is a notice for the user (from a function)
     $_SESSION['notice']['message'] = $message;
     $_SESSION['notice']['type'] = $type;
   }
 
   function is_active_tab( $tab_id ) {
+    // used to set which tab is actively showing onscreen
     if ( $tab_id=='courses' && empty($_GET['tab']) )
       return true;
     else
@@ -125,6 +128,7 @@ session_start();
 $_SESSION['all_courses'] = populate_courses(); // populate onload for faster recall. TODO: make global not session
 
 function populate_courses() {
+  // read in and parse the COURSES_FILE to collect the list
   $courses = array();
   $file_handle = fopen( COURSES_FILE , "r" );
   
@@ -140,6 +144,7 @@ function populate_courses() {
 }
 
 function populate_reqs() {
+  // read in and parse the REQS_FILE to collect the list
   $reqs = array();
   $file_handle = fopen( REQS_FILE , "r" );
   
@@ -156,6 +161,7 @@ function populate_reqs() {
 
 
 function get_courses_for_user( $psid, $courses ) {
+  // collect which courses from the $courses array map to the passed-in people soft id
   $user_courses = array();
 
   foreach( $courses as $course ) {
@@ -191,6 +197,7 @@ function get_courses_by_department( $psid, $courses ) {
 }
 
 function get_requirements( $psid ) {
+  // populate a list of graduation requirements for the given $psid
   $graduation_reqs = populate_reqs();
   return $graduation_reqs;
 }
@@ -215,6 +222,9 @@ function requirements_met( $psid, $requirement ) {
   
   $course_options = $requirement->course_options;
 
+  // determine which satisfying courses (if any) for the given $requirement have been taken by the user
+  // with the given $psid
+
   foreach( $course_options as $index => $req ) {
 
     $pieces = explode( ",", $req );
@@ -222,13 +232,14 @@ function requirements_met( $psid, $requirement ) {
     $req_course_number = (int) $pieces[1];
 
     $user_course = get_user_course_record( $psid, $req_course_department, $req_course_number);
+    // if the user has a course_record for this course, he has satisfied the $requirement
     if ( isset($user_course) ) {
-      $elective_count = 0;
       return true;
     }
 
-
   }
+  // if we reach this point, we've exhausted the satisfying course options and therefore the user has not
+  // satisfied this $requirement
   return false;
 }
 
@@ -251,7 +262,7 @@ function requirements_met( $psid, $requirement ) {
         $line = fgets( $file_handle );
         $pieces = explode( ":", $line );
         $psid = $pieces[2];
-        $full_name = "$pieces[5] $pieces[4]";
+        $full_name = "$pieces[5] $pieces[4]"; // the advisor may search by people soft ID or first name - last name, so search for both matches
         if ( $psid == $search_term || $full_name == $search_term ) {
 
           $valid = true;
@@ -263,7 +274,7 @@ function requirements_met( $psid, $requirement ) {
           $_SESSION['student']['full_name'] = $full_name;
           $_SESSION['student']['access_level'] = $pieces[6];
 
-          $_SESSION['viewing_psid'] = $_SESSION['student']['psid'];
+          $_SESSION['viewing_psid'] = $_SESSION['student']['psid']; // one variable to key off for both user roles (student & advisor)
           $_SESSION['user_courses'] = get_courses_for_user( $_SESSION['viewing_psid'], $_SESSION['all_courses'] );
 
           break;
@@ -342,6 +353,7 @@ function requirements_met( $psid, $requirement ) {
   }
 
   function set_should_show_notes( $psid, $session_timestamp, $should_show ) {
+    // set this to display or hide particular advising session notes
     $_SESSION['should_show_notes'][ $session_timestamp ] = $should_show;
   }
 
@@ -365,10 +377,12 @@ function requirements_met( $psid, $requirement ) {
     $minute = $pieces[4];
     $second = $pieces[5];
 
+    // return a nicely-formatted date timestamp for display
     return date( $format, mktime( $hour, $minute, $second, $month, $day, $year ));
   }
 
   function clean( $str ) {
+    // ensure we don't have any weird characters from reading in text files
     return preg_replace( '/[^(\x20-\x7F)]*/','', $str );
   }
 
@@ -395,6 +409,7 @@ function requirements_met( $psid, $requirement ) {
 
   /*
   *
+  * MAIL FUNCTIONS
   *
   */
 

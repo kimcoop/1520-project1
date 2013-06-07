@@ -1,6 +1,10 @@
 
 <?php include('templates/header.php') ?>
 
+  <?php
+    if ( !is_logged_in() ):
+  ?>
+
   <form class="form-signin" action="routes.php" name="signin_form" method="post">
 
     <h2 class="text-center form-signin-heading">Welcome to Advisor Cloud</h2>
@@ -49,5 +53,17 @@
     </span>
     
   </form>
+
+  <?php
+    else:
+  ?>
+
+  <h2>Hello</h2>
+  <a href="<?php echo get_root_url(); ?>" class="btn btn-primary">Home</a>
+
+  <?php
+    endif;
+  ?>
+
 
 <?php include('templates/footer.php') ?>
